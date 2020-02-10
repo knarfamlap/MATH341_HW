@@ -48,34 +48,58 @@ NAME: \line(1,0){380}
 
 \easysubproblem{Explain Hume's problem of induction with the sun rising every day.}\spc{3}
 
+Hume believed that we can't be absolutely certain about anything that involves cause and effect, traditional beliefs, and habitual relationships. For that reason, Hume disregards the notion of the sum rising every day because we are not absolutely certain what the next day will bring. 
 \easysubproblem{Explain the \qu{inverse probability problem.}}\spc{3}
 
+The inverse probability problem states that instead of arriving to an effect through a cause, you could instead have the effect lead to the cause. Bayes did so by inventing a number called it a guess. As he gathered information he refined the guess in order for it to be as close as the actual value. 
+
 \easysubproblem{What is Bayes' billiard table problem?}\spc{3}
+
+Baye's billiard table problem involves a a square table that if a ball a thrown on it, it would have the same chance of landing on one spot as on any other. 
 
 \hardsubproblem{[MA] How did Price use Bayes' idea to prove the existence of the deity?} \spc{3}
 
 \easysubproblem{Why should Bayes Rule really be called \qu{Laplace's Rule?}}\spc{3}
 
+Laplace had made probability-based statistics commonplace. Laplace put Bayes rule into modern terms far beyond the theoretical gambling that Bayes was putting the formula to use. 
+
 \hardsubproblem{Prove the version of Bayes Rule found on page 20. State your assumption(s) explicitly. Reference class notes as well.}\spc{4}
 
 \easysubproblem{Give two scientific contexts where Laplace used inverse probability theory to solve major problems.}\spc{3}
 
+Laplace used the inverse probability theory to calculate the gravitational attraction on the motions of the moon and to calculate the motions of Jupiter and Saturn. 
+
 \hardsubproblem{[MA] Why did Laplace turn into a frequentist later in life?} \spc{3}
+
+
 
 \easysubproblem{State Laplace's version of Bayes Rule (p31).} \spc{3}
 
+The probability of a hypothesis (given information), equals to the initial estimate of its probability times the probability of each new piece of information under the hypothesis, divided by the sum of the probabilities of the data all possible hypothesis. 
+
 \easysubproblem{Why was Bayes Rule \qu{damned} (pp36-37)?} \spc{3}
+
+Bayes rule was \qu{dammed} due to the religious views that the critics themselves had. They claimed that it was filled with subjective and objective views.
 
 \easysubproblem{According to Edward Molina, what is the prior (p41)?} \spc{3}
 
+Edwards Molina definition of the prior is the collateral information. Since statisticians were forced to make decisions based on insufficient data, in such cases they relied on prior knowledge, called collateral information.    
+
 \easysubproblem{What is the source of the \qu{credibility} metric that insurance companies used in the 1920's?} \spc{3}
 
+The source of \qu{credibility} was the industry wide experience and the local businesses for new data. 
+
 \easysubproblem{Can the principle of inverse probability work without priors? Yes/no.} \spc{1}
+
+No
 
 \hardsubproblem{In class we discussed / will discuss the \qu{principle of indifference} which is a term I borrowed from \href{http://www.amazon.com/Philosophical-Theories-Probability-Issues-Science/dp/041518276X/ref=sr_1_1?ie=UTF8&qid=1455112335&sr=8-1&keywords=donald+gillies+theory+of+probability}{Donald Gillies' Philosophical Theories of Probability}. On Wikipedia, it says that Jacob Bernoulli called it the \qu{principle of insufficient reason}. McGrayne in her research of original sources comes up with many names throughout history this principle was named. List all of them you can find here.} \spc{3}
 
 \easysubproblem{Jeffreys seems to be the founding father of modern Bayesian Statistics. But why did the world turn frequentist in the 1920's? (p57)} \spc{3}
 \end{enumerate}
+
+
+
 
 \problem{These exercises will review the Bernoulli model.}
 
@@ -84,37 +108,136 @@ NAME: \line(1,0){380}
 
 \easysubproblem{If $X \sim \bernoulli{\theta}$, find $\expe{X}$, $\var{X}$, $\support{X}$ and $\Theta$. No need to derive from first principles, just find the formulas.}\spc{2}
 
+\begin{itemize}
+  \item $\expe{X} = \theta$
+  \item $\var{X} = \theta(1 - \theta)$
+  \item $\support{X} = \{k \in [0, 1]\}$
+  \item $\Theta = [0, 1]$
+\end{itemize}
+
 \intermediatesubproblem{If $X \sim \bernoulli{\theta}$, find $\median{X}$.}\spc{2}
+
+
+    \[ \begin{cases} 
+      0 & \theta < 1/2 \\
+      [0, 1] & \theta = 1/2 \\
+      1 & \theta > 1
+   \end{cases}
+\]
 
 \intermediatesubproblem{If $X \sim \bernoulli{\theta}$, write the \qu{parametric statistical model} below using the notation we used in class only wit a semicolon.}\spc{2}
 
+    If $X \sim \bernoulli{\theta}$,
+    then $\mathcal{F}$ = \{ $P(x; \theta)$ : $\theta \in \Theta$ \}
 
 \intermediatesubproblem{Explain what the semicolon notation in the previous answer indicates.}\spc{2}
 
+    Represents the conditional distribution of X given $\theta$
+
 \easysubproblem{If $\Xoneton \iid \bernoulli{\theta}$, find the likelihood, $\mathcal{L}$, of $\theta$.}\spc{2}
+
+\begin{align*}
+    \mathcal{L}(\theta; x) =  \prod\limits_{i=1}^{n} p(x_{i} ; \theta) = \prod\limits_{i=1}^{n} \theta^{x_{i}}(1-\theta)^{1 - x_{i}}
+\end{align*}
 
 \hardsubproblem{Given the likelihood above, what would $\mathcal{L}$ be if the data was $<0,1,0,1,3.7>$? Why should this answer have to be?}\spc{2}
 
+   \begin{align*}
+    \mathcal{L}(\theta, x) = \prod\limits_{i = 1}^{n}\theta^{x_{i}}(1 - \theta)^{1 - x_{i}} = \theta^{5.7}(1 - \theta)^{-1.7}
+   \end{align*}
+
+    Since $3.7 \notin \support{X}$, $\mathcal{L}(\theta, x) = 0$
+
 \easysubproblem{If $\Xoneton \iid \bernoulli{\theta}$, find the log-likelihood of $\theta$, $\ell(\theta)$.}\spc{2}
+
+\begin{align*}
+     \ell(\theta) = \ln(\theta)(n \bar{X}) + \ln(i - \theta)(n - n\bar{X})
+\end{align*}
 
 \hardsubproblem{[MA] If $\Xoneton \iid f(x;\theta)$, explain why the log-likelihood of $\theta$ is normally distributed if $n$ gets large.}\spc{6}
 
 \easysubproblem{If $\Xoneton \iid \bernoulli{\theta}$, find the score function (i.e the derivative of the log-likelihood) of $\theta$.}\spc{2}
 
+
+    \begin{align*}
+        \ell^{\prime}(\theta) = n(\frac{\bar{X}}{\theta} - \frac{1 - \bar{X}}{1 - \theta}) 
+    \end{align*}
+
+
 \intermediatesubproblem{If $\Xoneton \iid \bernoulli{\theta}$, find the maximum likelihood estimator for $\theta$. An \qu{estimator} is a random variable. Thus, it will be an uppercase letter.}\spc{4}
+
+    \begin{align*}
+        \hat\theta = argmax\{ \mathcal{L}(\theta)\}
+    \end{align*}
+
+    
 
 \easysubproblem{If $\Xoneton \iid \bernoulli{\theta}$, find the maximum likelihood \textit{estimate} for $\theta$. An \qu{estimate} is a number. Thus, it will be a lowercase letter.}\spc{1}
 
+
+    \begin{align*}
+        \hat\theta_{MLE} = \frac{1}{n}\sum\limits_{i = 1}^{k}X_{i}
+    \end{align*}
+
 \easysubproblem{If your data is $<0,1,1,0,1,1,0,1,1,1>$, find the maximum likelihood \textit{estimate} for $\theta$.}\spc{1}
 
+    \begin{align*}
+        \hat\theta_{MLE} = \bar{X} = \frac{1}{n}\sum\limits_{i = 1}^{k}X_{i} = \frac{0 + 1 + 1 + 0 + 1 + 1 + 0 + 1 + 1 + 1}{10} = \frac{7}{10} = 0.7
+    \end{align*}
+
 \easysubproblem{Given this data, find a 99\% confidence interval for $\theta$.}\spc{4}
+
+Recall Confidence Interval:
+
+\begin{align*}
+ CI_{\theta, 1 - \alpha} = [\hat\theta_{MLE} \pm Z_{\frac{\alpha}{2}}SE[\hat\theta_{MLE}]]
+\end{align*}
+
+We know the value of $\hat\theta_{MLE}$ = 0.7 \\
+We know the value of $\alpha$ = 1 - 0.99 = 0.01 \\ 
+Thus, $Z = 1 - \frac{\alpha}{2} = 1 - \frac{0.01}{2} = 0.995$
+
+Therefore
+
+    \begin{align*}
+        [0.7 - (0.995)(.144), 0.7 + (0.995)(0.144)] = [0.55672, 0.84328]
+    \end{align*}
+
 
 \intermediatesubproblem{Given this data, test $H_0: \theta = 0.5$ versus $H_a: \theta \neq 0.5$.}\spc{7}
 
 
 \easysubproblem{Write the PDF of $X \sim \normnot{\theta}{1^2}$.}\spc{5}
 
+\begin{align*}
+    \normnot{\theta}{1^2} = \frac{1}{\sqrt{2\pi}}\exp{\frac{-(x - \theta)}{2}} 
+\end{align*}
+
 \hardsubproblem{Find the MLE for $\theta$ if $\Xoneton \iid \normnot{\theta}{1^2}$.}\spc{6}
+
+\begin{align*}
+    \mathcal{L}(\theta) = \prod\limits_{i = 1}^{n}\frac{1}{\sqrt{2\pi}}\exp{\frac{-(x - \theta)}{2}}
+\end{align*}
+
+\begin{align*}
+    \ell(\theta) = \ln(\prod\limits_{i=1}^{n}\frac{1}{\sqrt{2\pi}}\exp{\frac{-(x - \theta)}{2}}) = \sum\limits_{i = 1}^{n}\ln(\frac{1}{\sqrt{2\pi}}\exp{\frac{-(x - \theta)}{2}})
+\end{align*}
+
+\begin{align*}
+    = \sum\limits_{i=1}^{n}[-\ln(\sqrt{2\pi}) - \frac{1}{2}(X_i - \theta)^2]
+\end{align*}
+
+\begin{align*}
+    \ell^{\prime}(\theta) = -n\ln(\sqrt{2\pi}) - \sum\limits_{i=1}^{n}\frac{1}{2}(X_i - \theta)^{2} = \sum\limits_{i=1}^{n}X_{i} - n\theta
+\end{align*}
+
+\begin{align*}
+    \ell^{\prime}(\theta) = 0
+\end{align*}
+
+\begin{align*}
+    \hat\theta_{MLE} = \frac{1}{n}\sum\limits_{i=1}^{n}X_{i}
+\end{align*}
 
 \hardsubproblem{[MA] Find the MLE for $\theta$ if $\Xoneton \iid \normnot{\mu}{\sigsq}$. Solve the system of equations $\partialop{\mu}{\ell(\theta)} = 0$ and $\partialop{\sigsq}{\ell(\theta)} = 0$ where $\ell(\theta)$ denotes the log likelihood. You can easily find this online. But try to do it yourself.} \spc{20}
 
@@ -129,10 +252,22 @@ NAME: \line(1,0){380}
 
 \easysubproblem{What are the three goals of inference? Give short explanations.}\spc{5}
 
+
+\begin{itemize}
+    \item Provides an estimate for $\theta$. Point estimation
+    \item Provides a confidence set which allows us to see a range of possible values for $\theta$
+    \item Testing allows us to test hypothesis. We define a hypothesis and allow the data to tell us if we are correct or not
+\end{itemize}
+
 \easysubproblem{What are the three reasons why \emph{frequentists} (adherents to the frequentist perspective) use MLEs i.e. list three properties of MLEs that make them powerful.}\spc{6}
 
-\hardsubproblem{[MA] Give the conditions for asymptotic normality of the MLE,
+\begin{itemize}
+    \item Provides \emph{consistency} as $\hat\theta_{MLE} \approx \theta$
+    \item MLE's have an \emph{assymptotic normality}. $\hat\theta_{MLE} \approx \normnot{\theta}{SE(\hat\theta_{MLE})}$
+    \item Among all consistent estimators $\hat\theta_{MLE}$ has the lowest variance therefore it is efficient
+\end{itemize}
 
+\hardsubproblem{[MA] Give the conditions for asymptotic normality of the MLE,
 \beqn
 \frac{\thetahatmle - \theta}{\se{\thetahatmle}} \convd \stdnormnot.
 \eeqn
@@ -152,14 +287,37 @@ You need the continuous mapping theorem and Slutsky's theorem.
 
 \intermediatesubproblem{Why does some of frequentist inference break down if $n$ isn't large?}\spc{2}
 
+When n is small $\hat\theta_{MLE}$ does not approximate to $\normnot{\theta}{SE(\hat\theta_{MLE})}$ 
+
 \easysubproblem{Write the most popular two frequentist interpretations of a confidence interval.}\spc{6}
+
+\begin{itemize}
+    \item If we repeat the experiment multiple times with a 95\% the confidence interval will include $\theta$
+    \item Before you conduct the experiment we can predict a $\theta$ within the confidence interval
+\end{itemize}
 
 \intermediatesubproblem{Why are each of these unsatisfactory?}\spc{3}
 
+Because both of these methods require prior data which is not always available. 
 \easysubproblem{What are the two possible outcomes of a hypothesis test?}\spc{1}
+
+\emph{Null Hypothesis}
+\begin{align*}
+    H_{0} : \theta = \theta_{0} 
+\end{align*}
+
+\emph{Alternative Hypothesis}
+\begin{align*}
+    H_{a} : \theta \neq \theta_{0}
+\end{align*}
 
 \hardsubproblem{[MA] What is the weakness of the interpretation of the $p$-val?}\spc{6}
 
+\begin{itemize}
+    \item If the sample size is large enough, it is possible to have a significant p-value.
+    \item If the sample size is small there can be statistical insignificance dispite having a large maginitude of association.
+    \item There might be a statistical significance even if the data demostrate a bias which affects the accuracy of the data. 
+\end{itemize}
 
 \end{enumerate}
 
@@ -171,6 +329,7 @@ You need the continuous mapping theorem and Slutsky's theorem.
 
 \easysubproblem{Explain why $\cprob{B}{A} \propto \cprob{A}{B}$.}\spc{6}
 
+% $\cprob{B}{A} \propto \cprob{A}{B}$ because 
 \easysubproblem{If $B$ represents the hypothesis or the putative cause and $A$ represents evidence or data, explain what Bayesian Conditionalism is, going from which probability statement to which probability statement.}\spc{3}
 
 \end{enumerate}
