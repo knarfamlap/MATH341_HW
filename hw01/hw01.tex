@@ -48,26 +48,26 @@ NAME: \line(1,0){380}
 
 \easysubproblem{Explain Hume's problem of induction with the sun rising every day.}\spc{3}
 
-Hume believed that we can't be absolutely certain about anything that involves cause and effect, traditional beliefs, and habitual relationships. For that reason, Hume disregards the notion of the sum rising every day because we are not absolutely certain what the next day will bring. 
+Hume believed that we can't be absolutely certain about anything that involves cause and effect, traditional beliefs, and habitual relationships. For that reason, Hume disregards the notion of the sun rising every day because we are not absolutely certain what the next day will bring. 
 \easysubproblem{Explain the \qu{inverse probability problem.}}\spc{3}
 
 The inverse probability problem states that instead of arriving to an effect through a cause, you could instead have the effect lead to the cause. Bayes did so by inventing a number called it a guess. As he gathered information he refined the guess in order for it to be as close as the actual value. 
 
 \easysubproblem{What is Bayes' billiard table problem?}\spc{3}
 
-Baye's billiard table problem involves a a square table that if a ball a thrown on it, it would have the same chance of landing on one spot as on any other. 
+Baye's billiard table problem involves a square table that if a ball a thrown on it, it would have the same chance of landing on one spot as on any other. 
 
 \hardsubproblem{[MA] How did Price use Bayes' idea to prove the existence of the deity?} \spc{3}
 
 \easysubproblem{Why should Bayes Rule really be called \qu{Laplace's Rule?}}\spc{3}
 
-Laplace had made probability-based statistics commonplace. Laplace put Bayes rule into modern terms far beyond the theoretical gambling that Bayes was putting the formula to use. 
+Laplace had made probability-based statistics commonplace. Laplace put Bayes rule into modern terms far beyond the theoretical gambling problems that Bayes was putting the formula to use. 
 
 \hardsubproblem{Prove the version of Bayes Rule found on page 20. State your assumption(s) explicitly. Reference class notes as well.}\spc{4}
 
 \easysubproblem{Give two scientific contexts where Laplace used inverse probability theory to solve major problems.}\spc{3}
 
-Laplace used the inverse probability theory to calculate the gravitational attraction on the motions of the moon and to calculate the motions of Jupiter and Saturn. 
+Laplace used the inverse probability theory to calculate the gravitational attraction on the motion of the moon and to calculate the motions of Jupiter and Saturn. 
 
 \hardsubproblem{[MA] Why did Laplace turn into a frequentist later in life?} \spc{3}
 
@@ -96,6 +96,8 @@ No
 \hardsubproblem{In class we discussed / will discuss the \qu{principle of indifference} which is a term I borrowed from \href{http://www.amazon.com/Philosophical-Theories-Probability-Issues-Science/dp/041518276X/ref=sr_1_1?ie=UTF8&qid=1455112335&sr=8-1&keywords=donald+gillies+theory+of+probability}{Donald Gillies' Philosophical Theories of Probability}. On Wikipedia, it says that Jacob Bernoulli called it the \qu{principle of insufficient reason}. McGrayne in her research of original sources comes up with many names throughout history this principle was named. List all of them you can find here.} \spc{3}
 
 \easysubproblem{Jeffreys seems to be the founding father of modern Bayesian Statistics. But why did the world turn frequentist in the 1920's? (p57)} \spc{3}
+
+Due to Fisher's argumentative nature, the book describes Jeffrey's as a mild character. At the same, Quantum Mechanics became popular and scientists used frequencies in order to know the location of an electron. 
 \end{enumerate}
 
 
@@ -151,11 +153,16 @@ No
 \easysubproblem{If $\Xoneton \iid \bernoulli{\theta}$, find the log-likelihood of $\theta$, $\ell(\theta)$.}\spc{2}
 
 \begin{align*}
-     \ell(\theta) = \ln(\theta)(n \bar{X}) + \ln(i - \theta)(n - n\bar{X})
+     \ell(\theta) = \ln(\theta)(n \bar{X}) + \ln(1 - \theta)(n - n\bar{X})
 \end{align*}
 
 \hardsubproblem{[MA] If $\Xoneton \iid f(x;\theta)$, explain why the log-likelihood of $\theta$ is normally distributed if $n$ gets large.}\spc{6}
 
+By the law of large numbers and the central limit theorem the log-likelihood converges to $\theta$ as $n \to \infty$
+
+\begin{align*}
+\sqrt{n}(\bar{X} - \theta) \to \normnot{0}{\var{X_{i}}} = \normnot{0}{\theta}
+ \end{align*}
 \easysubproblem{If $\Xoneton \iid \bernoulli{\theta}$, find the score function (i.e the derivative of the log-likelihood) of $\theta$.}\spc{2}
 
 
@@ -190,7 +197,7 @@ No
 Recall Confidence Interval:
 
 \begin{align*}
- CI_{\theta, 1 - \alpha} = [\hat\theta_{MLE} \pm Z_{\frac{\alpha}{2}}SE[\hat\theta_{MLE}]]
+ CI_{\theta, 1 - \alpha} = [\hat\theta_{MLE} \pm z_{\frac{\alpha}{2}}SE[\hat\theta_{MLE}]]
 \end{align*}
 
 We know the value of $\hat\theta_{MLE}$ = 0.7 \\
@@ -200,7 +207,7 @@ Thus, $Z = 1 - \frac{\alpha}{2} = 1 - \frac{0.01}{2} = 0.995$
 Therefore
 
     \begin{align*}
-        [0.7 - (0.995)(.144), 0.7 + (0.995)(0.144)] = [0.55672, 0.84328]
+        [0.7 - (0.995)(0.144), 0.7 + (0.995)(0.144)] = [0.55672, 0.84328]
     \end{align*}
 
 
@@ -216,11 +223,11 @@ Therefore
 \hardsubproblem{Find the MLE for $\theta$ if $\Xoneton \iid \normnot{\theta}{1^2}$.}\spc{6}
 
 \begin{align*}
-    \mathcal{L}(\theta) = \prod\limits_{i = 1}^{n}\frac{1}{\sqrt{2\pi}}\exp{\frac{-(x - \theta)}{2}}
+    \mathcal{L}(\theta) = \prod\limits_{i = 1}^{n}\frac{1}{\sqrt{2\pi}}\exp{\frac{-(X_{i} - \theta)}{2}}
 \end{align*}
 
 \begin{align*}
-    \ell(\theta) = \ln(\prod\limits_{i=1}^{n}\frac{1}{\sqrt{2\pi}}\exp{\frac{-(x - \theta)}{2}}) = \sum\limits_{i = 1}^{n}\ln(\frac{1}{\sqrt{2\pi}}\exp{\frac{-(x - \theta)}{2}})
+    \ell(\theta) = \ln(\prod\limits_{i=1}^{n}\frac{1}{\sqrt{2\pi}}\exp{\frac{-(X_{i} - \theta)}{2}}) = \sum\limits_{i = 1}^{n}\ln(\frac{1}{\sqrt{2\pi}}\exp{\frac{-(X_{i} - \theta)}{2}})
 \end{align*}
 
 \begin{align*}
@@ -293,12 +300,12 @@ When n is small $\hat\theta_{MLE}$ does not approximate to $\normnot{\theta}{SE(
 
 \begin{itemize}
     \item If we repeat the experiment multiple times with a 95\% the confidence interval will include $\theta$
-    \item Before you conduct the experiment we can predict a $\theta$ within the confidence interval
+    \item A confidence interval provides a set of $\theta$ values that can be tested. 
 \end{itemize}
 
 \intermediatesubproblem{Why are each of these unsatisfactory?}\spc{3}
 
-Because both of these methods require prior data which is not always available. 
+Because both of these methods require a significant amount of data in order to produce true positive values. 
 \easysubproblem{What are the two possible outcomes of a hypothesis test?}\spc{1}
 
 \emph{Null Hypothesis}
@@ -329,7 +336,8 @@ Because both of these methods require prior data which is not always available.
 
 \easysubproblem{Explain why $\cprob{B}{A} \propto \cprob{A}{B}$.}\spc{6}
 
-% $\cprob{B}{A} \propto \cprob{A}{B}$ because 
+If various events are equally likely, and an event is observed, then the probability for the alternative events are proportional to the probabilities of that the observed event would have occurred under those other alternate events. 
+
 \easysubproblem{If $B$ represents the hypothesis or the putative cause and $A$ represents evidence or data, explain what Bayesian Conditionalism is, going from which probability statement to which probability statement.}\spc{3}
 
 \end{enumerate}
