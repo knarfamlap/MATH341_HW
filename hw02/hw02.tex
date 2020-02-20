@@ -48,13 +48,22 @@ NAME: \line(1,0){380}
 
 \easysubproblem{Describe four things Bayesian modeling was applied to during WWII and identify the people who developed each application.}\spc{8}
 
+\begin{itemize}
+    \item Cracking Enigma Code to sink German U-boats, Alan Turing
+    \item Bayesian Artillery, ANdreui Kolmogorov
+\end{itemize}
+
 \intermediatesubproblem{What do you think was the main reason Bayesian Statistics fell out of favor at the end of WWII?}\spc{2}
-
-
+There was a lack of recognition to the people who applied the methods. Due to 
 \intermediatesubproblem{Why weren't the leaders of Statistics world in the 1950's able to answer the think-tank's question about the $\prob{\text{war in the next 5 years}}$?}\spc{2}
+
+
+Because they were under the impretion that probability applies to a long sequence of repeatable events and that having was in the next 5 years
+was just a unqiue situation. Multiple academic papers were published years after the war ended and by that time the people using the Bayesian approach had passed away. 
 
 \easysubproblem{Who was responsible for reviving the interest in Bayesian Statistics post-WWII and why?}\spc{2}
 
+Author Bailey became the first to challenge the anti-bayesian status quo. Author Baily was using Bayesian Statistics to determine the new years insurances premium rates.
 
 \hardsubproblem{In 1955, there were no midair collisions of two planes. How was the actuary able to estimate that the number would be above zero?}\spc{2}
 
@@ -77,17 +86,52 @@ NAME: \line(1,0){380}
 
 \easysubproblem{Using the principle of indifference, what should the prior on $\theta$ (the parameter for the Bernoulli model) be?}\spc{1}
 
+\begin{align*}
+    \prob{\theta} = U(0, 1) = \betanot{1}{1}
+\end{align*}
+
 \intermediatesubproblem{[MA] Can any discrete distribution satisfy the principle of indifference? Prove or disprove.}\spc{3}
 
 \easysubproblem{Let's say $n=6$ and your data is $0,1,1,1,1,1$. What is the likelihood of this event?}\spc{2}
 
+Applying the principle of indifference, if each event is equaly likely and $n = 6$ then the likelihood is : 
+
+\begin{align*}
+   (\frac{1}{2})^{6} = \frac{1}{64}   
+\end{align*}
+
 \easysubproblem{Does it matter the order as to which the data came in? Yes/no.}\spc{0.5}
+
+No
 
 \intermediatesubproblem{Show that the unconditional joint probability (the denominator in Bayes rule) is a beta function and specify its two arguments.}\spc{5}
 
+Recall the beta function,
+
+\begin{align*}
+    B(\alpha, \beta) = \infintegral{t}{t^{\alpha - 1}(1 - t)^{\beta - 1}}
+\end{align*}
+
+Therefore,
+
+\begin{align*}
+    \prob{X} =  \int_{0}^{1} \prob{X \middle| \theta} = \int_{0}^{1} \theta^{\alpha - 1}(1 - \theta)^{\beta - 1} d\theta = B(\alpha, \beta) 
+\end{align*}
+
 \intermediatesubproblem{Calculate this beta function explicitly.}\spc{5}
 
+\begin{align*}
+    \int_{0}^{1} \theta^{\sum x_{i}}(1 - \theta)^{n - \sum x_{i}} d\theta = \int_{0}^{1} \theta^{5} - \theta^{6} d\theta = \frac{1}{42}
+\end{align*}
+
 \intermediatesubproblem{Put your answers together to find the posterior probability of $\theta$ given this dataset. Do not use the beta function in your answer. Plot this posterior density function as best as you can.}\spc{5}
+
+Assuming the principle of indifference where the prior is $\prob{\theta} = \betanot{1}{1}$
+
+\begin{align*}
+    \betanot{\sum x_{i} + \alpha}{n - \sum x_{i} + \beta} = \betanot{5 + 1}{6 - 5 + 1} = \betanot{6}{2} 
+\end{align*}
+
 
 \easysubproblem{Sketch / plot / illustrate this posterior density function as best as you can by hand. Indicate where the $\thetahatmap$, $\thetahatmmse$ and $\thetahatmae$ estimates for $\theta$ are on the illustration using vertical lines as best as you can. No need to calculate them now explicitly. Just eyeball it on your drawing.}\spc{5}
 
