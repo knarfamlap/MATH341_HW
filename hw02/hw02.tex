@@ -1,4 +1,6 @@
 \documentclass[12pt]{article}
+\usepackage{graphicx}
+\graphicspath{{./images/}}
 
 \include{preamble}
 
@@ -49,8 +51,10 @@ NAME: \line(1,0){380}
 \easysubproblem{Describe four things Bayesian modeling was applied to during WWII and identify the people who developed each application.}\spc{8}
 
 \begin{itemize}
-    \item Cracking Enigma Code to sink German U-boats, Alan Turing
-    \item Bayesian Artillery, ANdreui Kolmogorov
+    \item Cracking Enigma Code, Alan Turing
+    \item Bayesian Artillery, Andrei Kolmogorov
+    \item Locating U Boats, Bernard Osgood Koopman
+    \item Cryptography, Claude Shannon
 \end{itemize}
 
 \intermediatesubproblem{What do you think was the main reason Bayesian Statistics fell out of favor at the end of WWII?}\spc{2}
@@ -69,11 +73,18 @@ Author Bailey became the first to challenge the anti-bayesian status quo. Author
 
 \easysubproblem{The main attack on Bayesian Statistics has always been subjectivity. Answer the following question how Savage would have answered it: \qu{If prior opinions can differ from one researcher to the next, what happens to scientific objectivity in data analysis?} Do you believe Savage's idea is the way science works in the real world?}\spc{3}
 
+Yes because there exists a correlation between the amount of data and the agreence of opinions. As the amount of data increases, the subjectivity between person to person differs by the slightest. In the other hand, without any concrete evidence one can make an assumption based on its beliefs if the data cannot is insufficient enought. 
 
 \hardsubproblem{[MA] On page 104, Sharon writes, \qu{Bayesians would also be able to concentrate on what happened, not on what \textit{could} have happened according to Neyman Pearson's samping plan}. (Note that the \qu{Neyman Pearson's samping plan} is synonymous with Frequentist Statistics). Explain (1) how Bayesians concentrate on \qu{what happened} and (2) how Frequentists concentrate on what \qu{\textit{could} have happened} in the context on page 104.}\spc{6}
 
 
 \easysubproblem{Who were the two tireless champions of Bayesian Statistics throughout the 50's, 60's and 70's and where geographically were they located during the majority of their career?}\spc{2}
+
+\begin{itemize}
+    \item Jimmie Savage, The University of Chicago
+    \item Dennis Lindley, Cambridge University 
+\end{itemize}
+
 
 \end{enumerate}
 
@@ -135,6 +146,7 @@ Assuming the principle of indifference where the prior is $\prob{\theta} = \beta
 
 \easysubproblem{Sketch / plot / illustrate this posterior density function as best as you can by hand. Indicate where the $\thetahatmap$, $\thetahatmmse$ and $\thetahatmae$ estimates for $\theta$ are on the illustration using vertical lines as best as you can. No need to calculate them now explicitly. Just eyeball it on your drawing.}\spc{5}
 
+\includegraphics{hw02_2H.png}
 
 \intermediatesubproblem{Show that the posterior is a beta distribution and specify its parameters.}\spc{5}
 
@@ -143,47 +155,203 @@ Assuming the principle of indifference where the prior is $\prob{\theta} = \beta
 
 \easysubproblem{Now imagine you are not indifferent and you have some idea about what $\theta$ could be a priori and that subjective feeling can be specified as a beta distribution. (1) Draw the basic shapes that the beta distribution can take on, (2) give an example of $\alpha$ and $\beta$ values that would produce these shapes and (3) write a sentence about what each one means for your prior belief. These shapes are in the notes.}\spc{15}
 
+\includegraphics{hw02_2K.png}
+
 \intermediatesubproblem{Imagine $n$ data points of which you don't know the realization values. Using your prior of $\theta \sim \stdbetanot$, show that $\theta~|~X \sim \betanot{\alpha + x}{\beta + (n - x)}$. Note that $x := \sum_{i = 1}^n x_i$ which is the total number of successes and thereby $n-x$ is the total number of failures.}\spc{10}
+
+ If $\theta \sim \stdbetanot$ then,
+
+\begin{align*}
+    \prob{\theta | X} \propto \prob{X | \theta} \prob{\theta}
+\end{align*}
+
+\begin{align*}
+    = {n\choose x}\theta^{x}(1-\theta)^{n-x} \frac{\Gammaf{\alpha +\beta}}{\Gammaf{\alpha}\Gammaf{\beta}\theta^{\alpha -1}(1-\theta)^{\beta-1}}
+\end{align*}
+
+\begin{align*}
+    = \theta^{x}(1 - \theta)^{n-x}\theta^{\alpha-1}(1-\theta)^{\beta-1}
+\end{align*}
+
+\begin{align*}
+    \theta^{x+\alpha-1}(1-\theta)^{n-x+\beta-1}
+\end{align*}
+
+\begin{align*}
+    \prob{\theta|X} = \betanot{\alpha + x}{\beta + n - x}
+\end{align*}
 
 \easysubproblem{What does it mean that the beta distribution is the \qu{conjugate prior} for the binomial likelihood?}\spc{3}
 
+It means that if we started with a beta prior, we get a distribution as a posterior.
+
 \hardsubproblem{Show that if $Y \sim \stdbetanot$ then $\var{Y} = \frac{\alpha\beta}{\squared{\alpha + \beta}(\alpha + \beta + 1)}$.}\spc{11}
 
+Recall,
+
+\begin{align*}
+    \var{Y} = E(x^{2}) - [(E(x)]^{2} = \int_{0}^{0}{x^{2}f_{x}(x)d\x} - \int_{0}^{1}{x f_{x}(x) d\x}  
+\end{align*}
+
+\begin{align*}
+    \int_{0}^{1}\frac{x^{\alpha-1}(1-x)^{\beta - 1}}{\betanot{\alpha}{\beta}}d\x - \frac{\alpha^{2}}{(\alpha + \beta) ^2}
+\end{align*}
+
+\begin{align*}
+    = \frac{\betanot{2 + \alpha}{\beta}}{\betanot{\alpha}{\beta}} - \frac{\alpha^2}{(\alpha + \beta)^2}
+ \end{align*}
+ 
+\begin{align*}
+   =  \frac{\Gammaf{2 + \alpha} \Gammaf{\beta}}{\Gammaf{2 + \alpha + \beta}} \frac{\Gammaf{\alpha + \beta}}{\Gammaf{\alpha} \Gammaf{\beta}} - \frac{\alpha^2}{(\alpha + \beta)^2} 
+\end{align*}
+
+\begin{align*}
+    \frac{\alpha(\alpha+1)}{(\alpha+\beta)(\alpha+\beta+1)} - \frac{\alpha^2}{(\alpha + \beta)^2}
+\end{align*}
+
+\begin{align*}
+  = \frac{\alpha(\alpha+1)(\alpha+\beta) - \alpha^2(\alpha+\beta+1)}{(\alpha + \beta)^2(\alpha+\beta+1)}
+\end{align*}
+
+\begin{align*}
+    \var{Y} = \frac{\alpha\beta}{(\alpha + \beta)^2(\alpha+\beta+1)}    
+\end{align*}
+
+
 \extracreditsubproblem{Prove that $B(\alpha, \beta) = \frac{\Gammaf{\alpha} \Gammaf{\beta}}{\Gammaf{\alpha + \beta}}$.}
+
+\begin{align*}
+    \B(x,y) = \int_{0}^{1}{t^{x-1}(1-t)^{y-1}} = \frac{(x-1)!(y-1)!}{(x+y-1)!}
+\end{align*}
+
+\begin{align*}
+    \Gammaf{s} = \int_{0}^{\infty}x^{s-1}\exp{-x}d\x
+\end{align*}
+
+\begin{align*}
+    \Gammaf{m}\Gammaf{n} = \int_{0}^{\infty}x^{m-1}\exp{-x}d\x \int_{0}^{\infty} y^{n-1}\exp{-y}d\y
+\end{align*}
+
+\begin{align*}
+    = \int_{0}^{\infty}\int_{0}^{\infty}x^{m-1}y^{n-1}\exp{-(x+y)}d\x d\y
+\end{align*}
+
+\begin{align*}
+   x = v t ,  y = v(1-t)
+\end{align*}
+
+\begin{align*}
+    =  \int_{0}^{\infty}(v t)^{m-1}(v(1-t))^{n-1}\exp{-(v t + v(1 - t)}d\x d\y
+\end{align*}
+
+\begin{align*}
+    \Gammaf{m}\Gammaf{n} =  \int_{0}^{\infty} t^{m-1}(1-t)^{n-1}d t  \int_{0}^{\infty}v^{m+n-1}\exp{-v}d v
+\end{align*}
+
+\begin{align*}
+    \Gammaf{m}\Gammaf{n} = B(m,n)\Gammaf{m+n}
+\end{align*}
+
+
 
 
 \intermediatesubproblem{The posterior is $\theta~|~X \sim \betanot{\alpha + x}{\beta + (n - x)}$. Some say the values of $\alpha$ and $\beta$ can be interpreted as follows: $\alpha$ is considered the prior number of successes and $\beta$ is considered the prior number of failures. Why is this a good interpretation? Writing out the PDF of $\theta~|~X$ should help you see it.}\spc{5}
 
+If $\theta$ is considered the prior number of successes and $\beta$ is considered the prior number of failures then anything that is added to each must be the same unit. This is a good interpretation because it is consistent with the way we add the known successes to $\theta$ and the know failure to $\beta$ respectively
+
+
 \intermediatesubproblem{If you employ the principle of indifference, how many successes and failures is that equivalent to seeing a priori?}\spc{3}
+
+One pseudo success and one pseudo failure. 
+\begin{align*}
+    U(0,1) = B(1,1)
+\end{align*}
 
 \easysubproblem{Why are large values of $\alpha$ and/or $\beta$ considered to compose a \qu{strong} prior?}\spc{2}
 
+$\alpha$ and $\beta$ are pseudo successes and pseudo failure respectively. If $\theta$ and $\beta$ are large then the stronger your belief is. At the end, if you have enough data, the data "swamps the prior" if your prior is weak. 
+
 \intermediatesubproblem{[MA] What is the weakest prior you can think of and why?}\spc{5}
 
+Using a uniform prior because it gives 50/50 odds to each event.
 
 \hardsubproblem{I think a priori that $\theta$ should be expected to be 0.8 with a standard error of 0.02. Solve for the values of $\alpha$ and $\beta$ based on my a priori specification. }\spc{9}
+
+Let $\pi_0$ be expectation and $\sigma^2$ the stardard error, respectively. 
+
+\begin{align*}
+    \alpha = \frac{\pi_0(\pi_0(1-\pi_0)- \sigma^2)}{\sigma^2} = \frac{0.8(0.8(1-0.8)-0.02^2)}{0.02^2} = 319.2
+\end{align*}
+
+\begin{align*}
+    \beta = \frac{\pi_0(1-\pi_0)-\sigma^2}{\sigma^2} - \alpha = \frac{(0.8)(1-0.8)-(0.02)^2}{(0.02)^2} - 319.2 = 79.8
+\end{align*}
+
+
 
 %\hardsubproblem{Prove that the posterior predictive distribution is $X^*~|~X \sim \bernoulli{\frac{x + \alpha}{n + \alpha + \beta}}$. MA students --- do this yourself. Other students --- use my notes and justify each step. I use a property of the \href{https://en.wikipedia.org/wiki/Gamma_function}{gamma function}. Remember, if $W \sim \bernoulli{\theta}$ then $\prob{W=1} = \theta$. Use that trick! Set $X^* = 1$ and find that probability!}\spc{12}
 
 
 \easysubproblem{Assume the dataset in (b) where $n=6$. Assume $\theta \sim \betanot{\alpha=2}{\beta=2}$ a priori. Find the $\thetahatmap$, $\thetahatmmse$ and $\thetahatmae$ estimates for $\theta$. For the $\thetahatmae$ estimate, you'll need to obtain a quantile of the beta distribution. Use \texttt{R} on your computer or online using \href{http://rextester.com/l/r_online_compiler}{rextester}. The \texttt{qbeta} function in \texttt{R} finds arbitrary beta quantiles. Its first argument is the quantile desired e.g. 2.5\%, the next is $\alpha$ and the third is $\beta$. So to find the 97.5\%ile of a $\betanot{\alpha=2}{\beta=2}$ for example you type \texttt{qbeta(.975, 2, 2)} into the \texttt{R} console.}\spc{2}
 
+\begin{align*}
+    \thetahatmap = \bar{X} = \frac{5}{6} = 0.883
+\end{align*}
+
+\begin{align*}
+    \thetahatmmse = 
+\end{align*}
+
 \intermediatesubproblem{Why are all three of these estimates the same?}\spc{5}
+
+Due to the small size of the dataset
 
 \easysubproblem{Write out an expression for the 95\% credible region for $\theta$. Then write out the answer using the \texttt{qbeta} function from the \texttt{R} language.}\spc{3}
 
+\begin{align*}
+    CR_{\theta, 95\%} = [Quantile(2.5\%, 7, 3), Quantile(97.5\%, 7, 3)]
+\end{align*}
+    
+\begin{align*}
+    CR_{\theta, 95\%}  = [\texttt{qbeta}(.025, 7 , 3), \texttt{qbeta}(.975, 7 , 3)]
+\end{align*}
+
 \easysubproblem{Compute a 95\% frequentist CI for $\theta$.}\spc{5}
+
+\begin{align*}
+    CI_{\theta, 95\%} = [0.833 + (1.960)\frac{0.4082}{\sqrt{6}}, 0.833 + (1.960)\frac{0.4082}{\sqrt{6}}] = [0.506, 1.159]
+\end{align*}
 
 \hardsubproblem{Let $\mu : \reals \rightarrow \reals^+$ be the \href{https://en.wikipedia.org/wiki/Lebesgue_measure}{Lebesgue measure} which measures the length of a subset of $\reals$. Why is $\mu(\text{CR}) < \mu(\text{CI})$? That is, why is the Bayesian Confidence Interval tighter than the Frequentist Confidence Interval? Use your previous answers. }\spc{5}
 
+Bayesian confidence intervals use the data to construct the interval whereas an Frequentist confidence interval does not take it into consideration and it assumes an asymptotic normality. 
+
 \easysubproblem{Explain the disadvantages of the highest density region method for computing credible regions.}\spc{3}
+
+Highest Density Regions are computationally intense. Additionally, they are non-contiguous as they supply multiple possible locations for $\theta$. 
 
 \intermediatesubproblem{Design a prior where you believe $\expe{\theta} = 0.5$ and you feel as if your belief represents information contained in five coin flips.}\spc{3}
 
+\begin{align*}
+    Beta(2.5, 2.5)
+\end{align*}
 \intermediatesubproblem{Calculate a 95\% a priori credible region for $\theta$. Use \texttt{R} on your computer (or \href{https://rdrr.io/snippets/}{rdrr.io} online) and its \texttt{qbeta} function.}\spc{3}
+
+\begin{align*}
+    CR_{\theta, 95\%} = [\texttt{qbeta}(0.025, 2.5, 2.5), \texttt{qbeta}(0.975, 2.5, 2.5)] = [0.123, 0.877]
+\end{align*}
 
 \easysubproblem{You flip the same coin 100 times and you observe 39 heads. Calculate a 95\% a posteriori credible region for $\theta$. Round to the nearest 3 decimal points.}\spc{0.5}
 
+
+If we use the principle of indifference, 
+\begin{align*}
+    \prob{\theta | X} = Beta(1  +39, 100 - 39 + 1) = Beta(40 , 60) 
+\end{align*}
+
+\begin{align*}
+    CR_{\theta, 95\%} = [\texttt{qbeta}(0.025, 40, 60), \texttt{qbeta}(0.975, 40, 60)] = [0.307, 0.497]
+\end{align*}
 
 \end{enumerate}
 
