@@ -17,6 +17,7 @@
 
 \renewcommand{\abstractname}{Instructions and Philosophy}
 
+% !TEX root = ./hw02.tex
 \begin{document}
 \maketitle
 
@@ -58,22 +59,24 @@ NAME: \line(1,0){380}
 \end{itemize}
 
 \intermediatesubproblem{What do you think was the main reason Bayesian Statistics fell out of favor at the end of WWII?}\spc{2}
-There was a lack of recognition to the people who applied the methods. Due to 
+
+There was a lack of recognition to the people who applied the methods. Publications were not published until post war and the public didn't get the chance to see the problems that Bayesian Statistics was solving.
+
 \intermediatesubproblem{Why weren't the leaders of Statistics world in the 1950's able to answer the think-tank's question about the $\prob{\text{war in the next 5 years}}$?}\spc{2}
 
 
-Because they were under the impretion that probability applies to a long sequence of repeatable events and that having was in the next 5 years
-was just a unqiue situation. Multiple academic papers were published years after the war ended and by that time the people using the Bayesian approach had passed away. 
+Because they were under interpretation that probability applies to a long sequence of repeatable events and that having was in the next 5 years
+was just a unique situation. Multiple academic papers were published years after the war ended and by that time the people using the Bayesian approach had passed away. 
 
 \easysubproblem{Who was responsible for reviving the interest in Bayesian Statistics post-WWII and why?}\spc{2}
 
-Author Bailey became the first to challenge the anti-bayesian status quo. Author Baily was using Bayesian Statistics to determine the new years insurances premium rates.
+Author Bailey became the first to challenge the anti-Bayesian status quo. Author Baily was using Bayesian Statistics to determine the new years insurances premium rates.
 
 \hardsubproblem{In 1955, there were no midair collisions of two planes. How was the actuary able to estimate that the number would be above zero?}\spc{2}
 
 \easysubproblem{The main attack on Bayesian Statistics has always been subjectivity. Answer the following question how Savage would have answered it: \qu{If prior opinions can differ from one researcher to the next, what happens to scientific objectivity in data analysis?} Do you believe Savage's idea is the way science works in the real world?}\spc{3}
 
-Yes because there exists a correlation between the amount of data and the agreence of opinions. As the amount of data increases, the subjectivity between person to person differs by the slightest. In the other hand, without any concrete evidence one can make an assumption based on its beliefs if the data cannot is insufficient enought. 
+Yes because there exists a correlation between the amount of data and the agreence of opinions. As the amount of data increases, the subjectivity between person to person differs by the slightest. In the other hand, without any concrete evidence one can make an assumption based on its beliefs if the data is not sufficient enough. 
 
 \hardsubproblem{[MA] On page 104, Sharon writes, \qu{Bayesians would also be able to concentrate on what happened, not on what \textit{could} have happened according to Neyman Pearson's samping plan}. (Note that the \qu{Neyman Pearson's samping plan} is synonymous with Frequentist Statistics). Explain (1) how Bayesians concentrate on \qu{what happened} and (2) how Frequentists concentrate on what \qu{\textit{could} have happened} in the context on page 104.}\spc{6}
 
@@ -150,6 +153,9 @@ Assuming the principle of indifference where the prior is $\prob{\theta} = \beta
 
 \intermediatesubproblem{Show that the posterior is a beta distribution and specify its parameters.}\spc{5}
 
+\begin{align*}
+    \betanot{\sum x_{i} + \alpha}{n - \sum x_{i} + \beta} = \betanot{5 + 1}{6 - 5 + 1} = \betanot{6}{2} 
+\end{align*}
 
 \hardsubproblem{[MA] Prove that the posterior expectation is the mean squared error optimal estimator given your prior and the data.}\spc{3}
 
@@ -295,11 +301,15 @@ Let $\pi_0$ be expectation and $\sigma^2$ the stardard error, respectively.
 \easysubproblem{Assume the dataset in (b) where $n=6$. Assume $\theta \sim \betanot{\alpha=2}{\beta=2}$ a priori. Find the $\thetahatmap$, $\thetahatmmse$ and $\thetahatmae$ estimates for $\theta$. For the $\thetahatmae$ estimate, you'll need to obtain a quantile of the beta distribution. Use \texttt{R} on your computer or online using \href{http://rextester.com/l/r_online_compiler}{rextester}. The \texttt{qbeta} function in \texttt{R} finds arbitrary beta quantiles. Its first argument is the quantile desired e.g. 2.5\%, the next is $\alpha$ and the third is $\beta$. So to find the 97.5\%ile of a $\betanot{\alpha=2}{\beta=2}$ for example you type \texttt{qbeta(.975, 2, 2)} into the \texttt{R} console.}\spc{2}
 
 \begin{align*}
-    \thetahatmap = \bar{X} = \frac{5}{6} = 0.883
+    \thetahatmap = Mode[\theta | X] = \frac{\sum{x_i} + \alpha}{n - \sum{x_i} + \beta} =  0.75
 \end{align*}
 
 \begin{align*}
-    \thetahatmmse = 
+    \thetahatmmse = E[\theta | X] = \frac{\sum{x_i}}{n + \theta + \beta} = 0.70
+\end{align*}
+
+\begin{align*}
+    \thetahatmae = \texttt{qbeta}(0.5, \sum{x_i} + \alpha, n - \sum{x_i} +  \beta) = \texttt{qbeta}(0.5, 7, 3) = 0.714
 \end{align*}
 
 \intermediatesubproblem{Why are all three of these estimates the same?}\spc{5}
@@ -313,7 +323,7 @@ Due to the small size of the dataset
 \end{align*}
     
 \begin{align*}
-    CR_{\theta, 95\%}  = [\texttt{qbeta}(.025, 7 , 3), \texttt{qbeta}(.975, 7 , 3)]
+    CR_{\theta, 95\%}  = [\texttt{qbeta}(.025, 7 , 3), \texttt{qbeta}(.975, 7 , 3)] = [ 0.609, 0.925]
 \end{align*}
 
 \easysubproblem{Compute a 95\% frequentist CI for $\theta$.}\spc{5}
