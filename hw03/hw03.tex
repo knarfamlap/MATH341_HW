@@ -51,8 +51,32 @@ NAME: \line(1,0){380}
 \begin{enumerate}
 \intermediatesubproblem{Design a prior where you believe $\expe{\theta} = 0.5$ and you feel as if your belief represents information contained in five coin flips.}\spc{4}
 
+If E($\theta$) = 0.5
+
+\begin{align*}
+    0.5 &= \frac{\alpha}{\alpha + \beta} \\
+    \alpha &= \beta
+\end{align*}
+
+If $a=b$ and our belief represent 5 coin flips then we can say our prior is
+
+\begin{align*}
+    Beta(2.5, 2.5)
+\end{align*}
+
 \intermediatesubproblem{You flip the same coin 100 times and you observe 39 heads. Test the hypothesis that this coin is fair given prior information from (a). Write out the hypotheses for this test, declare an $\alpha$ and use the credible region method. Make sure you say whether you retain or reject the null and justify why.}\spc{12}
 
+If $n=100$ and $\sum_{i=0}x_i = 39$, then let $\alpha = 0.5$ 
+
+\begin{align*}
+    \prob{\theta} &= Beta(2.5, 2.5) \\
+    \prob{\theta | X} &= Beta(2.5 + 39, 2.5, + 100 - 39) \\ 
+    &= Beta(41.5, 63.5) \\
+\end{align*}
+
+\begin{align*}
+    \frac{\alpha}{\alpha + \beta} + 
+\end{align*}
 
 \intermediatesubproblem{Let's say you wanted to test whether the coin is fair but you are indifferent to any $\theta$ which is different from fair by a margin of $\delta$ that you pick. Write out the hypotheses for this test, declare an $\alpha$ and calculate the Bayesian $p$-val for the test to determine if you should retain or reject $H_0$.}\spc{9}
 
@@ -65,6 +89,12 @@ NAME: \line(1,0){380}
 \easysubproblem{Prove that $\displaystyle \limitn \rho = 0$ and therefore this bias $\rightarrow 0$ as your dataset gets larger.}\spc{3}
 
 \hardsubproblem{[MA] Why should anyone use shrinkage estimators if they're biased? Google it. Discuss.}\spc{10}
+
+\begin{itemize}
+    \item More stable estimates for true population parameters
+    \item Reduce sampling and non-sampling errors
+    \item Smoothed spatial fluctuations
+\end{itemize}
 
 \hardsubproblem{Find the posterior predictive distribution, $X^*~|~X$. MA students --- do this yourself. Other students --- use my notes and justify each step. Remember, if $W \sim \bernoulli{p}$ then $\prob{W=1} = p$. Use that trick.}\spc{10}
 
