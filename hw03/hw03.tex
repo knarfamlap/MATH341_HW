@@ -82,9 +82,35 @@ If $n=100$ and $\sum_{i=0}x_i = 39$, then let $\alpha = 0.5$
 
 \intermediatesubproblem{Test the hypothesis that this coin has a bias towards tails given prior information from (a) and the data from (b). Write out the hypotheses for this test, declare an $\alpha$ and calculate the Bayesian $p$-val for the test to determine if you should retain or reject $H_0$.}\spc{9}
 
+\begin{align*}
+   H_a : \theta < 0.5 \\
+   H_0 : \theta \geq 0.5 \\ 
+\end{align*}
+
+If $\alpha = 0.05$,
+
+\begin{align*}
+    \prob{\theta \geq 0.5} &= \int_0^1 \betanot{41.5}{63.5}d\theta - \int_0^{0.5} \betanot{41.5}{63.5}d\theta \\
+    &= 1 - \texttt{pbeta}(0.5, 41.5, 63.5) \\ 
+    &= 0.015
+\end{align*}
+
 \easysubproblem{Assume again the prior information from (a). What is the shrinkage proportion $\rho$ for this prior when estimating $\theta$ via $\thetahatmmse$?.}\spc{2}
 
 \hardsubproblem{Prove that $\thetahatmmse$ is a biased estimator (i.e. its expectation is \textit{not} $\theta$).}\spc{4}
+
+Recall,
+
+\begin{align*}
+    \thetahatmmse = \frac{X + \alpha}{n + \alpha + \beta} 
+\end{align*}
+
+\begin{align*}
+    \expe{\thetahatmmse} &= \expe{\frac{X + \alpha}{n + \alpha + \beta}} \\
+        &= (\frac{1}{n+\alpha+\beta})\expe{X + \alpha} \\
+        &= (\frac{1}{n+\alpha+\beta})\expe{X} + \alpha \\
+        &= (\frac{1}{n+\alpha+\beta})n\theta + \alpha \neq \theta
+\end{align*} 
 
 \easysubproblem{Prove that $\displaystyle \limitn \rho = 0$ and therefore this bias $\rightarrow 0$ as your dataset gets larger.}\spc{3}
 
@@ -100,11 +126,33 @@ If $n=100$ and $\sum_{i=0}x_i = 39$, then let $\alpha = 0.5$
 
 \hardsubproblem{Using the prior in (a), can $X^*~|~X$ ever be degenerate? Yes/no and explain.}\spc{3}
 
+Recall,
+
+\begin{align*}
+    \prob{X^*~|~X} = \bernoulli{\frac{\alpha+X}{\alpha+\beta+n}}
+\end{align*}
+
+If we can in consideration the prior from (a) then, 
+
+\begin{align*}
+    \prob{X^*~|~X} = \bernoulli{\frac{2.5 + X}{5 + n}}
+\end{align*}
+
+Therefore NO, it can never be degenerate  becasue $n$ or $X$ can not be negative. 
 
 \hardsubproblem{Using the general prior $\prob{\theta} = \betanot{\alpha}{\beta}$, can $X^*~|~X$ ever be degenerate? Yes/no and explain.}\spc{2.5}
 
+No since $\alpha$ and $\beta$ have to be greater than 0. 
+
 \intermediatesubproblem{Given the prior information in (a) and the data in (b), what is the probability the next flip is a tail?}\spc{0}
 
+\begin{align*}
+   \prob{X^*=0~|~X} &= 1 - \thetahatmmse \\
+   &= 1 - \frac{\alpha + n}{\alpha+\beta+n} \\
+   &= 1 - (\frac{41.5 + 5}{63.5 + 41.5 + 5}) \\
+   &= 1 - 0.423 \\
+   &= 0.577
+\end{align*}
 
 \end{enumerate}
 
