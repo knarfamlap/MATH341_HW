@@ -9,7 +9,7 @@
 
 \title{MATH 341 / 650.3 Spring 2020 Homework \#4}
 
-\author{Professor Adam Kapelner} %STUDENTS: write your name here
+\author{Frank Palma Gomez} %STUDENTS: write your name here
 
 \iftoggle{professormode}{
 \date{Due in KY604, Monday 11:59PM, March 16, 2020 \\ \vspace{0.5cm} \small (this document last updated \today ~at \currenttime)}
@@ -111,23 +111,42 @@ NAME: \line(1,0){380}
 
 \easysubproblem{What is an improper prior?}\spc{2}
 
+A prior that is infenistesimal over an infinite range. 
+
 \intermediatesubproblem{Is $\theta \sim \betanot{100}{0}$ improper? Yes / no and provide a proof.}\spc{4}
 
 \easysubproblem{When are improper priors \qu{legal}?}\spc{2}
 
+If $\sum_i^n x_i \neq 0$ and $\sum_i^n x_i \neq n$ or when it does not violate that parameter smapce for that particular prior. 
+
 \easysubproblem{When are improper priors \qu{illegal}?}\spc{2}
+
+If $\sum_i^n x_i = 0$ and $\sum_i^n x_i = n$ or the parameters violate the parameter space. 
+
 
 \hardsubproblem{What does $I(\theta)$ tell you about the random variable with respect to its parameter $\theta$?}\spc{5}
 
+The amount of information that $X$, the random variable, contains. 
+
 \intermediatesubproblem{If I compute a posterior on the $\theta$ scale and then measure the parameter on another scale, will I (generally) get the same posterior probability? Yes/no explain.}\spc{4}
 
+If using Jeffreys prior, yes since any parametarization provides the same prior. 
 
 \easysubproblem{What is the Jeffrey's prior for $\theta$ under the binomial likelihood? Your answer must be a distribution.}\spc{4}
 
+\begin{align*}
+    \betanot{\frac{1}{2}}{\frac{1}{2}}
+\end{align*}
+
 \hardsubproblem{What is the Jeffrey's prior for $\theta = t^{-1}(r) = \frac{e^r}{1 + e^r}$ (i.e. the log-odds reparameterization) under the binomial likelihood?}\spc{6}
 
+\begin{align*}
+    BetaPrime(\frac{1}{2}, \frac{1}{2})
+\end{align*}
 
 \hardsubproblem{Explain the advantage of Jeffrey's prior.}\spc{6}
+
+Jeffreys prior allows you to arrive to the same posterios with any parametarization by doing a change of variable. This is also known as the invariance principle. Jeffreys prior also reflects little knowledge about the data.
 
 \hardsubproblem{[MA] Prove Jeffrey's invariance principle i.e. prove that the Jeffrey's prior makes your prior probability immune to transformations. Use the second proof from class.}\spc{14}
 
@@ -156,21 +175,48 @@ Looking at the entire dataset for 6,061 batters who had 100 or more at bats, I f
 \begin{enumerate}
 
 \easysubproblem{Is the prior \qu{conjugate}? Yes / No.}\spc{-0.5}
+
+Yes
+
 \easysubproblem{Is this prior \qu{indifferent}? Yes / No.}\spc{-0.5}
+
+No
+
 \easysubproblem{Is this prior \qu{objective}? Yes / No.}\spc{-0.5}
+
+Yes
+
 \easysubproblem{Is this prior \qu{informative}? Yes / No.}\spc{-0.5}
+
+Yes
 
 \easysubproblem{Using prior data to build the prior is called...}\spc{-0.5}
 
+informative Prior. Imperical Bayes. 
+
 \easysubproblem{This prior has the information contained in how many observations?}\spc{-0.5}
+
+$\alpha + \beta = 170$
 
 \easysubproblem{We now observe four at bats for a new player and there were no hits. Find the $\thetahatmmse$.}\spc{0.5}
 
+\begin{align*}
+    \thetahatmmse = \expe{\theta | X} = \frac{\alpha + X}{\alpha + \beta + n} = \frac{42.3}{42.3 + 127.7 + 4} = \frac{42.3}{174} = 0.243 
+\end{align*}
+
 \easysubproblem{Why was your answer so far away from $\thetahatmle = 0$? What is the shrinkage proportion in this estimation?} \spc{2}
+
+\begin{align*}
+    \rho = \frac{\alpha + \beta}{\alpha + \beta + n} = \frac{42.3 . +127.7}{42.3 + 127.7 + 4} = \frac{170}{174} = 0.977
+\end{align*}
 
 \intermediatesubproblem{Why is it a good idea to shrink so hard here? Why do some consider this to be one of the beauties of Bayesian modeling?} \spc{6}
 
+Although $\sum x$ is 0, since you know the batting average then you can shrink your value towards the actual average despite having not a lot of data. 
+
 \hardsubproblem{Write an exact expression for the batter getting 14 or more hits on the next 20 at bats. You can leave your answer in terms of the beta function. Do not compute explicitly.} \spc{3}
+
+
 
 \intermediatesubproblem{How many hits is the batter expected to get in the next 20 at bats?} \spc{3}
 
@@ -182,12 +228,20 @@ Looking at the entire dataset for 6,061 batters who had 100 or more at bats, I f
 
 \easysubproblem{What is the kernel of $X~|~\theta,~n \sim \binomial{n}{\theta}$?}\spc{3}
 
+\begin{align*}
+    \prob{X|\theta} = {n \choose x}\theta^x(1-\theta)^{n-x} \propto \theta^x(1-\theta)^{n-x}
+\end{align*}
+
 \hardsubproblem{What is the kernel of $X, n~|~\theta \sim \binomial{n}{\theta}$? Be careful...}\spc{3}
 
 
 \easysubproblem{What is the kernel of $X~|~\alpha,~\beta \sim \betabinomial{n}{\alpha}{\beta}$?}\spc{3}
 
 \easysubproblem{What is the kernel of $X~|~\theta \sim \poisson{\theta} := \frac{e^{-\theta}\theta^x}{x!}$?}\spc{3}
+
+\begin{align*}
+    \prob{X|\theta} = \frac{e^{-\theta}\theta^x}{x!} \propto \frac{\theta^x}{x!}
+\end{align*}
 
 \hardsubproblem{What is the kernel of $\theta~|~X \sim \poisson{\theta}$? Be careful...}\spc{3}
 
