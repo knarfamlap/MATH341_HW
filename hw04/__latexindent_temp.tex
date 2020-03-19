@@ -51,41 +51,21 @@ NAME: \line(1,0){380}
 
 \easysubproblem{When was experimentation introduced to medical science and who introduced it? Are you surprised that it was this recent?}\spc{1}
 
-Introduced in the 1950's by Jerome Cornfield
-
 \easysubproblem{Sir Ronald A. Fisher, the founder of modern experiments, did not believe cigarettes caused lung cancer. What were his two hypotheses for the cause of lung cancer?}\spc{2}
-
-Smoking causes lung cancer and that genetic factors can give people hereditary susceptibility for  smoking and lung cancer
 
 \easysubproblem{Who invented, and what are Bayes Factors? (p116)}\spc{2}
 
-Bayes's Facotrs was inverted by Jerome Cornfield. Bayes factors is the probability of the observed data under a hypotheses divided by its probability under another hypotheses
-
 \easysubproblem{Trick question: who convinced Cornfield to stop smoking?}\spc{2}
-
-Cornfields own research convinced him that there were 14 studies showing high correletaion between lung cancer and smoking 
 
 \easysubproblem{Why were frequentists at a loss to estimate the probability of a nuclear bomb being detonated by accident?}\spc{2}
 
-Because no atomic or hydrogen weapon had ever exploded by accident.
-
 \easysubproblem{What is \href{https://en.wikipedia.org/wiki/Cromwell\%27s_rule}{Cromwell's Rule}? And, when applying this principle to a Bayesian model what would it imply? (See the Wikipedia link and p123).}\spc{2}
-
-Cromwells rule is the ommision of prior probabilities with 0 or 1, except when applied to statements that are logically true or false. 
-You should not use improper priors in Bayesian models.
 
 \easysubproblem{Did Bayesian Statistics prevent nuclear accidents? Discuss.}\spc{5}
 
-Bayesian statistics preventer nuclear accidents by calculating the number of accident opportunities based on the number of weapons, the number of longevity, the number of times they were aboard planes or handled in storage.
-With that, they were able to estimate when a nuclear accident was likely to occur. 
-
 \easysubproblem{What is the main reason why there are so many variations of Bayesian interpretation? (p129)}\spc{4}
 
-The main reason why there was so many variations of Bayesian interpretation was because it subjective nature. 
-
 \easysubproblem{What is a large practical drawback of Bayesian inference? (See mid-end of chapter 8).}\spc{9}
-
-Bayesian inference conclusion are largely based on frequintism. 
 
 \end{enumerate}
 
@@ -95,38 +75,13 @@ Bayesian inference conclusion are largely based on frequintism.
 
 \hardsubproblem{Find the posterior predictive distribution, $X_*~|~X$ where $X_*$ denotes the random variable that counts the number of successes in $n_*$ future trials. MA students --- do this yourself. Other students --- use my notes and justify each step. Remember, if $W \sim \bernoulli{p}$ then $\prob{W=1} = p$. Use that trick. Simplify.}\spc{8}
 
-\begin{align*}
-    \prob{X_*~|~X} 
-    &= \int\limits_0^1 \binom{n_*}{x}\theta^x(1-\theta)^{(n_*-x)} 
-    \frac{1}{B(\alpha + x, \beta+n-x)} \theta^{(\alpha+x)-1}(1-\theta)^{(\beta+n-x)-1} \ d\theta \\
-    &= \betabinomial{n_*}{\alpha + x}{\beta + n_* -x}
-\end{align*}
-    
-
 \easysubproblem{If $n_* = 17$, what is the expectation and variance of $X_*~|~X$?}\spc{2}
-
-\begin{align*}
-    \expe{X}&= \frac{n\alpha}{\alpha+\beta} = \frac{17 *2.5}{2.5+2.5} = 8.5 \\
-\end{align*}
-
-\begin{align*}
-    \var{X}& = \frac{n \alpha \beta (\alpha+\beta+n)}{(\alpha+\beta)^2(\alpha+\beta+1)} = 
-    \frac{17 *2.5*2.5*(2.5+2.5+17)}{(2.5+2.5)^2(2.5+2.5+1)} = 15.58
-\end{align*}
 
 \intermediatesubproblem{Plot the PMF of $X_*~|~X$ as best as you can. Mark critical points and label the axes.}\spc{7}
 
 \easysubproblem{What is the probability of $x_* = 10$ given your data and prior? Write your answer in terms of the function(s) found in the Midterm's table 1.}\spc{1}
 
-\begin{align*}
-    pbetabinomial(10,\ 17,\ 2.5, \ 2.5) 
-\end{align*}
-
 \intermediatesubproblem{Answer the previous problem exactly and then round to two decimal places.}\spc{4}
-
-\begin{align*}
-    pbetabinomial(10,\ 17,\ 2.5, \ 2.5) = 0.67
-\end{align*}
 
 \end{enumerate}
 
@@ -139,15 +94,8 @@ Bayesian inference conclusion are largely based on frequintism.
 
 \easysubproblem{Let $X$ be $\normnot{0}{1^2}$ 1/3 of the time and $\exponential{3}$ 2/3 of the time. What is its pdf?}\spc{3}
 
-\begin{align*}
-    \prob{X} = \normpdf{x}{0}{\squared{1}}(\frac{1}{3}) + \exponentialpdf{x}{3}(\frac{2}{3})
-\end{align*}
 
 \hardsubproblem{Let's say $X~|~\beta \sim \betanot{1}{\beta}$ where $\beta~|~\lambda \sim \exponential{\lambda}$. Write an integral expression which when solved, finds the compound / marginal density of $X$. DO NOT solve.}\spc{6}
-
-\begin{align*}
-    \int \frac{1}{B(\alpha,\beta)}(1-x)^{\beta - 1}e^{\lambda \beta} d\beta 
-\end{align*}
 
 \hardsubproblem{[MA] Let's say $X~|~\theta,~\sigsq \sim \normnot{\theta}{\sigsq}$ where $\theta~|~\mu_0,~\tausq \sim \normnot{\mu_0}{\tausq}$. Write an integral expression which when solved, finds the compound / marginal density of $X$. DO NOT solve.}\spc{4}
 
@@ -229,7 +177,7 @@ The log-likelihood functions:
 \end{align*}
 
 \begin{align*}
-    \prob{\sqrt{I(\theta)}} = BetaPrime(\frac{1}{2}, \frac{1}{2})
+    \prob_{J}{\sqrt{I(\theta)}} = BetaPrime(\frac{1}{2}, \frac{1}{2})
 \end{align*}
 
 \end{enumerate}
@@ -266,7 +214,7 @@ No
 
 \easysubproblem{Is this prior \qu{objective}? Yes / No.}\spc{-0.5}
 
-No
+Yes
 
 \easysubproblem{Is this prior \qu{informative}? Yes / No.}\spc{-0.5}
 
@@ -283,7 +231,7 @@ $\alpha + \beta = 170$
 \easysubproblem{We now observe four at bats for a new player and there were no hits. Find the $\thetahatmmse$.}\spc{0.5}
 
 \begin{align*}
-    \thetahatmmse = \expe{\theta | X} = \frac{\alpha + x}{\alpha + \beta + n} = \frac{42.3}{42.3 + 127.7 + 4} = \frac{42.3}{174} = 0.243 
+    \thetahatmmse = \expe{\theta | X} = \frac{\alpha + X}{\alpha + \beta + n} = \frac{42.3}{42.3 + 127.7 + 4} = \frac{42.3}{174} = 0.243 
 \end{align*}
 
 \easysubproblem{Why was your answer so far away from $\thetahatmle = 0$? What is the shrinkage proportion in this estimation?} \spc{2}
@@ -317,20 +265,20 @@ Although $\sum x$ is 0, since you know the batting average then you can shrink y
 \easysubproblem{What is the kernel of $X~|~\theta,~n \sim \binomial{n}{\theta}$?}\spc{3}
 
 \begin{align*}
-    \prob{X|\theta} = {n \choose x}\theta^x(1-\theta)^{n-x} \propto \frac{1}{x!(n-x)!}\theta^x(1-\theta)^{n-x}
+    \prob{X|\theta} = {n \choose X}\theta^X(1-\theta)^{n-X} \propto \theta^X(1-\theta)^{n-X}
 \end{align*}
 
 \hardsubproblem{What is the kernel of $X, n~|~\theta \sim \binomial{n}{\theta}$? Be careful...}\spc{3}
 
 \begin{align*}
-    \prob{\theta | X} = {n \choose x} \theta^x (1-\theta)^{n-x} &= \frac{n!}{x!(n-x)!}\theta^x(1-\theta)^n(1-\theta)^{-x}
+    \prob{\theta | X} = {n \choose X} \theta^X (1-\theta)^{n-X} &= \frac{n!}{X!(n-X)!}\theta^X(1-\theta)^n(1-\theta)^{-X}
 \end{align*}
 
 
 \easysubproblem{What is the kernel of $X~|~\alpha,~\beta \sim \betabinomial{n}{\alpha}{\beta}$?}\spc{3}
 
 \begin{align*}
-    \prob{X | \alpha, \beta} = {n \choose x}\frac{\betanot{x + \alpha}{n - x + \beta}}{\betanot{\alpha}{\beta}} \propto \betanot{x + \alpha}{n-x+\beta} 
+    \prob{X | \alpha, \beta} = {n \choose x}\frac{\betanot{X + \alpha}{n - x + \beta}}{\betanot{\alpha}{\beta}} \propto \betanot{X + \alpha}{n-x+\beta} 
 \end{align*}
 
 \easysubproblem{What is the kernel of $X~|~\theta \sim \poisson{\theta} := \frac{e^{-\theta}\theta^x}{x!}$?}\spc{3}
@@ -342,7 +290,7 @@ Although $\sum x$ is 0, since you know the batting average then you can shrink y
 \hardsubproblem{What is the kernel of $\theta~|~X \sim \poisson{\theta}$? Be careful...}\spc{3}
 
 \begin{align*}
-    \prob{\theta|X} = \frac{\exp{-\theta}\theta^x}{x!} \propto \exp{-\theta}\theta^x 
+    \prob{\theta|X} = \frac{\exp{-\theta}\theta^X}{X!} \propto \frac{\alpha^X}{X!} 
 \end{align*}
 
 \easysubproblem{What is the kernel of $X~|~\alpha,~\beta \sim \stdbetanot$?}\spc{4}
@@ -350,32 +298,32 @@ Although $\sum x$ is 0, since you know the batting average then you can shrink y
 
 
 \begin{align*}
-    \prob{X|\alpha, \beta} = \frac{1}{B(\alpha, \beta)}x^{\alpha-1}(1-x)^{\beta-1} &\propto x^{\alpha-1}(1-x)^{\beta-1} \\ 
-     &\propto x^{\alpha-1}(1-x)^\beta(1-x)^{-1}
+    \prob{X|\alpha, \beta} = \frac{1}{B(\alpha, \beta)}X^{\alpha-1}(1-X)^{\beta-1} &\propto X^{\alpha-1}(1-X)^{\beta-1} \\ 
+     &\propto X^{\alpha-1}(1-X)^\beta(1-X)^{-1}
 \end{align*}
 
 \easysubproblem{What is the kernel of $X~|~\theta \sim \exponential{\theta} := \theta e^{-\theta x}$? This is the exponential distribution.}\spc{2}
 
 \begin{align*}
-    \prob{X|\theta} = \theta e^{-\theta x} \propto e^{-\theta x} 
+    \prob{X|\theta} = \theta e^{-\theta X} \propto e^{-\theta X} 
 \end{align*}
 
 \easysubproblem{What is the kernel of $X~|~\theta,~\sigsq \sim \normnot{\theta}{\sigsq}$?}\spc{3}
 
 \begin{align*}
-    \prob{X|\theta, \sigsq} = \normpdf{x}{\theta}{\sigsq} \propto \exp{\frac{-(x - \theta)^2}{2 \sigsq}}
+    \prob{X|\theta, \sigsq} = \normpdf{\theta}{\mu}{\sigsq} \propto \exp{\frac{-(\theta - \mu)^2}{2 \sigsq}}
 \end{align*}
 
 \hardsubproblem{What is the kernel of $\theta,~\sigsq~|~X \sim \normnot{\theta}{\sigsq}$? Be careful...}\spc{3}
 
 \begin{align*}
-    \prob{X|\theta, \sigsq} = \normpdf{x}{\theta}{\sigsq}
+    \prob{X|\theta, \sigsq} = \normpdf{\theta}{\mu}{\sigsq}
 \end{align*}
 
 \easysubproblem{What is the kernel of $X~|~k \sim \chisq{k} := {\displaystyle {\frac {1}{2^{k/2}\Gamma (k/2)}}\;x^{k/2-1}e^{-x/2}\;}$, the chi-squared distribution with $k$ degrees of freedom?}\spc{4}
 
 \begin{align*}
-    \prob{X|k} = {\frac {1}{2^{k/2}\Gamma (k/2)}}\;x^{k/2-1}e^{-x/2}\; \propto x^{k/2-1}\exp{\frac{-x}{2}}
+    \prob{X|k} = {\frac {1}{2^{k/2}\Gamma (k/2)}}\;x^{k/2-1}e^{-x/2}\; \propto X^{k/2-1}\exp{\frac{-X}{2}}
 \end{align*}
 
 \intermediatesubproblem{What is the kernel of 
@@ -388,9 +336,9 @@ where $N$ is the number of total balls in the bag, $\theta$ is the number of suc
 
 
 \begin{align*}
-    \prob{X|N,\theta, n} = \frac{{\theta \choose x}{n-\theta \choose n-x}}{{N \choose n}} &= \frac{\frac{\theta!}{x(\theta-x)}\frac{(N-\theta)!}{(n-x)!(N-\theta-n+x)!}}{\frac{N!}{n!(N-n)!}} \\ 
-    &= \frac{\theta! n! (n-\theta)!(N-n)!}{x!(\theta-x)!(n-x)!(N-\theta-n+x)!N!} \\ 
-    &\propto  \frac{1}{x!(\theta-x)!(n-x)!(N-\theta-n+x)!}
+    \prob{X|N,\theta, n} = \frac{{\theta \choose X}{n-\theta \choose n-x}}{{N \choose n}} &= \frac{\frac{\theta!}{X(\theta-X)}\frac{(N-\theta)!}{(n-x)!(N-\theta-n+X)!}}{\frac{N!}{n!(N-n)!}} \\ 
+    &= \frac{\theta! n! (n-\theta)!(N-n)!}{X!(\theta-X)!(n-X)!(N-\theta-n+x)!N!} \\ 
+    &\propto  \frac{1}{X!(\theta-X)!(n-X)!(N-\theta-n+X)!}
 \end{align*}
 
 \intermediatesubproblem{[MA] If $X \sim F_{k_1, k_2}$, Snecedor's F-distribution, what is its kernel?}\spc{4}
