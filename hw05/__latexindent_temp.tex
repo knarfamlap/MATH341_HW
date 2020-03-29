@@ -3,19 +3,19 @@
 \include{preamble}
 
 \newtoggle{professormode}
-\toggletrue{professormode} %STUDENTS: DELETE or COMMENT this line
 
 
 
 \title{MATH 341 / 650.3 Spring 2020 Homework \#5}
 
-\author{Professor Adam Kapelner} %STUDENTS: write your name here
+\author{Frank Palma Gomez} %STUDENTS: write your name here
 
 \iftoggle{professormode}{
 \date{Due by email, Sunday 11:59PM, March 29, 2020 \\ \vspace{0.5cm} \small (this document last updated \today ~at \currenttime)}
 }
 
 \renewcommand{\abstractname}{Instructions and Philosophy}
+
  % !TEX root = ./hw05.tex
 \begin{document}
 \maketitle
@@ -103,33 +103,110 @@ NAME: \line(1,0){380}
 
 \easysubproblem{Write the PDF of $\theta \sim \text{Gamma}(\alpha, \beta)$ which is the gamma distribution with the standard parameterization and notated with the hyperparameters we used in class.}\spc{2}
 
+\begin{align*}
+    \prob{\theta} =  \gammanot{\alpha}{\beta} = \frac{\beta^\alpha}{\Gammaf{\alpha}} \theta^{\alpha-1}\exp{\beta\theta}
+\end{align*}
+
+
 \easysubproblem{What is the support and parameter space?}\spc{2}
+
+\begin{align*}
+    \support{X} = (0, \infty), \alpha, \beta > 0 
+\end{align*}
 
 \easysubproblem{What is the expectation and standard error and mode?}\spc{2}
 
+\begin{itemize}
+    \item $\expe{Y} = \frac{\alpha}{\beta}$
+    \item $\var{Y} = \frac{\alpha}{\squared{\beta}}$
+    \item $\mode{Y} = \frac{\alpha-1}{\beta}$ if $\alpha$ > 1
+\end{itemize}
 
 \easysubproblem{Draw four different pictures of different hyperparameter combinations to demonstrate this model's flexibility}\spc{10}
 
-
 \intermediatesubproblem{Prove that the Poisson likelihood for $n=1$ with a gamma prior yields a gamma posterior and find its parameters.}\spc{4}
+
+\begin{align*}
+    \prob{\theta|X} &= \frac{\prob{X|\theta}\prob{\theta}}{\prob{X}} \\
+                    &\propto \prob{X|\theta}\prob{\theta} \\ 
+                    &= \frac{\exp{-n\theta}\theta^{x}}{x!}\frac{\beta^\alpha}{\Gammaf{\alpha}} \theta^{\alpha-1}\exp{\beta\theta} \\
+                    &= \exp{-n\theta}\theta^{x+\alpha-1}\exp{-\beta\alpha} \\
+                    &= \theta^{x+\alpha-1}\exp{-(n+\beta)\theta} \\
+                    &= \gammanot{x+\alpha}{n+\beta} \\ 
+                    &= \gammanot{x+\alpha}{1+\beta}
+\end{align*}
 
 \intermediatesubproblem{Prove that the Poisson likelihood for $n$ observations, i.e. $\Xoneton ;\theta \iid \poisson{\theta}$, with a gamma prior yields a gamma posterior and find its parameters.}\spc{6}
 
+\begin{align*}
+    \prob{\theta|X} &= \frac{\prob{X|\theta}\prob{\theta}}{\prob{X}} \\
+                    &\propto \prob{X|\theta}\prob{\theta} \\ 
+                    &= \frac{\exp{-n\theta}\theta^{\sum{x_i}}}{\prod{x_i!}}\frac{\beta^\alpha}{\Gammaf{\alpha}} \theta^{\alpha-1}\exp{\beta\theta} \\
+                    &= \exp{-n\theta}\theta^{\sum{x_i}+\alpha-1}\exp{-\beta\alpha} \\
+                    &= \theta^{\sum{x_i}+\alpha-1}\exp{-(n+\beta)\theta} \\
+                    &= \gammanot{\sum{x_i}+\alpha}{n+\beta}
+\end{align*}
+
+
 \easysubproblem{Now that you see the posterior, provide a pseudodata interpretation for both hyperparameters.}\spc{3}
+
+\begin{align*}
+    \theta|X \sim \gammanot{\sum{x_i}+\alpha}{n+\beta} 
+\end{align*}
+
+\begin{itemize}
+    \item $\sum{x_i}$ is the number of total successes
+    \item $\alpha$  is the number of psuedo successes
+    \item $n$ is the number of trials
+    \item $\beta$ is the number of pseudo trials
+\end{itemize}
 
 \intermediatesubproblem{Find the Bayesian point estimates as function of the data and prior's hyperparameters (i.e. $\thetahatmmse$, $\thetahatmae$ and $\thetahatmap$).}\spc{6}
 
+\begin{itemize}
+    \item $\thetahatmmse = \expe{\theta|X} = \frac{\sum{x_i}+\alpha}{n+\beta}$ 
+    \item $\thetahatmae = \median{\theta|X} = qgamma(0.5, \sum{x_i} + \alpha, n+\beta)$ 
+    \item $\thetahatmap = \mode{\theta|X} = \frac{\sum{x_i}+\alpha-1}{n+\beta}$ if $\sum{x_i}+\alpha \geq 1$  
+\end{itemize}
+    
 \intermediatesubproblem{If $\Xoneton ;\theta \iid \poisson{\theta}$, find $\thetahatmle$.}\spc{6}
+
+\begin{align*}
+    \mathcal{L}(\theta; X) &= \frac{\exp{-n\theta}\theta^{\sum{x_i}}}{\prod{x_i!}} \\ 
+    \ell^\prime(\theta;X) &= -n + \frac{\sum{x_i}}{\theta} = 0 \\
+    \thetahatmle &= \frac{1}{n} \sum{x_i} = \xbar   
+\end{align*}
 
 \intermediatesubproblem{Demonstrate that $\thetahatmmse$ is a shrinkage estimator and find $\rho$.}\spc{4}
 
+\begin{align*}
+    \thetahatmmse &= \frac{\sum{x_i}}{n+\beta} \frac{n}{n} + \frac{\alpha}{n+\beta} \frac{\beta}{\beta} \\
+                  &= \frac{n}{n+\beta} \xbar + \frac{\beta}{n+\beta} \expe{\theta} \\ 
+                  &= (1 - \rho)\xbar + \rho \expe{\theta} \\ 
+            \rho &= \frac{\xbar}{\xbar+\expe{\theta}}
+\end{align*}
+
 \intermediatesubproblem{Demonstrate that $\prob{\theta} \propto 1$ is improper.}\spc{2}
+
+If $\theta \sim U(0, \infty)$ then, $\prob{\theta} \propto 1$ but $\prob{\theta} = \frac{1}{\infty}$ therefore is not a valid pdf. 
 
 \easysubproblem{[MA] Demonstrate that $\prob{\theta} \propto 1$ can be created by using an improper Gamma distribution (i.e. a Gamma distribution with parameters that are not technically in its parameter space and thereby does not admit a distribution function).}\spc{5}
 
 \intermediatesubproblem{Find Jeffrey's prior for the Poisson likelihood model. Try to do it yourself.}\spc{5}
 
+\begin{align*}
+    \ell^{\prime}(\theta;X) &= -n + \frac{\sum{x_i}}{\theta} \\
+    \ell^{\prime\prime}(\theta;X) &= \frac{\sum{x_i}}{\theta} \\ 
+    \I(\theta) &= \expe{\ell^{\prime\prime}(\theta;X)} \\ 
+                &= \frac{1}{\squared{\theta}}\sum{\expe{x_i}} \\ 
+                &= \frac{n}{\theta}
+\end{align*}
+
 \easysubproblem{What is the equivalent of the Haldane prior in the Binomial likelihood model for the Poisson likelihood model? Use an interpretation of pseudocounts to explain.}\spc{2}
+
+$\prob{\theta|X} = \gammanot{\sum{x_i}+\alpha}{n+\beta}$ where $\alpha$ and $\beta$ are 0. Therefore, $\gammanot{\sum{x_i}}{n}$
+
+
 
 \intermediatesubproblem{Prove that posterior predictive distribution for the next Poisson realization (i.e. $n^* = 1$) given $n$ observed Poisson realizations is negative binomially distributed and show its parameters are $p = \beta / (\beta + 1)$ and $r = \alpha$ for $\alpha \in \naturals$.}\spc{10}
 
