@@ -51,42 +51,81 @@ NAME: \line(1,0){380}
 
 \easysubproblem{Did Savage like Shlaifer? Yes / No and why?}\spc{3}
 
+Yes because Savage describes Schlaifer as "hot as a pistol, sharp as a knife, clear as a bell, quick as a whip, and as exhausting as a marathon run"
+
 \easysubproblem{How did Neyman-Pearson approach statistical decision theory? What is the weakness to this approach? (p145)}\spc{3}
+
+The approach involved the test of hypotheses, confidence intervals, and unbiased estimation. Together, they could not infer what steps to take based on an observed 
+sample outcome without thinking about the other potential sample outcomes that could have occurred. 
 
 \easysubproblem{Who popularized \qu{probability trees} (and \qu{tree flipping}) similar to exercises we did in Math 241?}\spc{1}
 
+Raiffa popularized "probability trees" 
+
 \easysubproblem{Where are Bayesian methods taught more widely than any other discipline in academia?}\spc{2}
+
+They were taught more widly at wildcat drilling.
 
 \easysubproblem{Despite the popularity of his Bayesian textbook on business decision theory, why didn't Schlaifer's Bayesianism catch on in the real world of business executives making decisions?}\spc{3}
 
+Because Shlaifer was more of a theoretician and his inexperience on real world problems drove him away from that direction.
+
 \easysubproblem{Why did the pollsters fail (big time) to predict Harry Truman's victory in the 1948 presidential election?}\spc{2}
+
+Pollsters rejected randomized sampling and were relying on results that were formulated by outdated sampling designs that underrespresented the population. 
 
 \easysubproblem{When does the diference between Bayesianism and Frequentism grow \qu{immense}?}\spc{3}
 
+When you have an immense numbers of parameters. 
+
 \easysubproblem{How did Mosteller demonstrate that Madison wrote the 12 Federalist papers of unknown authorship?}\spc{3}
+
+They found odds to be easier in computating as opposed to mathematical vocabulary.
 
 \easysubproblem{Write a one paragraph biography of John Tukey.}\spc{4}
 
+John Tukey was a professor at Princeton University were he helped to establish a cryptography think tank.
+Tukey was part of the CIA and the NSA. At the same time of the Cold War, Tukey used paper and pencil in order to sketch the surface-to-air missle system. With his expirience, Tukey helped to build the U-2 spy plane and helped NBC develop a network to predict and analyse elections. 
+
 \easysubproblem{Why did Alfred Kinsey's wife want to poison John Tukey?}\spc{2}
+
+Kinsey and Tukey did not agree with sampling methods and ways to control randomness.
 
 \easysubproblem{Tukey helped NBC with polling predictions for the presidential campaign. What was NBC's polling algorithm based on?}\spc{2}
 
+The algorithm was based on empirical Bayes, were past data was used to construct the priors.
+
 \easysubproblem{Why is \qu{objectivity an heirloom ... and ... a fallacy?}}\spc{2}
+
+Economist and engineers should not be expected to have similar argumens regarding the same data. 
 
 \easysubproblem{Why do you think Tukey called Bayes Rule by the name \qu{borrowing strength?}}\spc{2}
 
+Tukey borrowed rules from Bayes Rule. 
+
 \easysubproblem{Why is it that we don't know a lot of Bayes Rule's modern history?}\spc{2}
+
+Tukey was banned from speaking and writting about Bayes rule.
 
 \easysubproblem{Generally speaking, how does Nate Silver predict elections?}\spc{2}
 
+Sliver combines different strengths from small samples and weights the results of other pollsets to keep track of how up to date is the data. 
+
 \easysubproblem{How many Bayesians of import were there in 1979?}\spc{1}
+
+About 100.
 
 \easysubproblem{What advice did Chernoff give to Susan Holmes? (Note: Susan Holmes was my undergraduate advisor).}\spc{3}
 
+Chernoff advices Holmes to start with Bayesian thinking to get the right answer. Then to justify her answer in which ever way she prefered. 
+
 \easysubproblem{How did Rasmussen's team estimate the probability of a nuclear plant core meltdown?}\spc{4}
+
+Using Raiffa's decision trees. 
 
 \easysubproblem{How did the Three Mile Island accident vindicate Rasmussen's committee report?}\spc{6}
 
+Human error and the release of radioactivity. 
 
 \end{enumerate}
 
@@ -220,14 +259,16 @@ Therefore, $\gammanot{\sum{x_i}}{n}$
 \end{align*}
 \intermediatesubproblem{If $\alpha \notin \naturals$, create an \qu{extended negative binomial} r.v. and find its PMF. You can copy from Wikipedia.}\spc{3}
 
-
-\intermediatesubproblem{Why is the extended negative binomial r.v. also known as the gamma-Poisson mixture distribution? Why is it also called the \qu{overdispersed Poisson}?}\spc{5}
-
 \begin{align*}
     \mathbb{P}(X;n,r,p) =
     \frac{\binom{x+r-1}{x}p^x}
     {(1-p)^{-r}-\sum^{n-1}_{i=0} \binom{i+r-1}{x}p^i}
  \end{align*}
+
+\intermediatesubproblem{Why is the extended negative binomial r.v. also known as the gamma-Poisson mixture distribution? Why is it also called the \qu{overdispersed Poisson}?}\spc{5}
+
+It is the posterior predictive result of the Poisson distribution given a prior Gamma. 
+It is called ther overdisperse Poisson because it has a greater variability. 
 
 \intermediatesubproblem{If you observe $0,3,2,4,2,6,1,0,5$, give a 90\% CR for $\theta$. Pick an principled objective (uninformative) prior.}\spc{5}
 
@@ -269,8 +310,29 @@ but where you see only \qu{$X$}, this is shorthand for all $n$ samples.}
 
 \easysubproblem{What is the kernel of $\theta~|~X,~\sigsq$?}\spc{1}
 
+\begin{align*}
+    \exp{\theta\frac{n\xbar}{\sigsq}-\theta^2\frac{n}{2\sigsq}}\propto\normnot{n\xbar}{\frac{\sigsq}{n}}
+\end{align*}
+
 \hardsubproblem{Show that posterior of $\theta~|~X,~\sigsq$ is normal if $\theta \sim \normnot{\mu_0}{\tausq}$. Try to do it yourself and only copy from the notes if you have to.}\spc{10}
 
+\begin{align*}
+    \prob{\theta~|~X,~\sigsq} &\propto \prob{X~|~\sigsq}\mathbb{P}(\theta~|~\sigsq)\\
+&= e^{a\theta-b\theta^2}e^{\alpha\theta-\beta\theta^2}\\
+&= e^{(a+\alpha)\theta-(b+\beta)theta^2}\\
+&\propto \mathcal{N}\Big({\frac{a+\alpha}{2(b+\beta)}},\frac{1}{2(b+\beta)} \Big)
+\end{align*}
+
+ Let $\mu_0 = \frac{\alpha}{2\beta}$ and $\tausq = \frac{1}{2\beta}$,
+if $a=\frac{n\xbar}{\sigsq}$ and $b=\frac{n\theta^2}{2\sigsq}$ 
+
+\begin{align*}
+    \prob{\theta~|~X,~\sigsq} 
+    &\propto \exp{(\frac{n\xbar}{\sigsq}+\frac{\mu_0}{\tausq})\theta
+    -(\frac{n\theta^2}{2\sigsq} + \frac{1}{2\tausq})\theta^2} \\ 
+    &\propto \mathcal{N}\Bigg({\frac{\frac{n\xbar}{\sigsq}+\frac{\mu_0}{\tausq}}{\frac{n\theta^2}{\sigsq} + \frac{1}{\tausq}}},
+    \frac{1}{\frac{n\theta^2}{\sigsq} + \frac{1}{\tausq}} \Bigg)
+\end{align*}
 
 \easysubproblem{Find the Bayesian point estimates as function of the data and prior's hyperparameters (i.e. $\thetahatmmse$, $\thetahatmae$ and $\thetahatmap$).}\spc{6}
 
