@@ -275,14 +275,29 @@ but where you see only \qu{$X$}, this is shorthand for all $n$ samples.}
 \easysubproblem{Find the Bayesian point estimates as function of the data and prior's hyperparameters (i.e. $\thetahatmmse$, $\thetahatmae$ and $\thetahatmap$).}\spc{6}
 
 \begin{itemize}
-    \item $\thetahatmmse = \expe{\theta|X} = \frac{\frac{n\xbar}{\squared{\sigma} + \frac{\mu_0}{\squared{\tau}}}}{} $
+    \item $\thetahatmmse = \expe{\theta|X} = \frac{\frac{n\xbar}{\squared{\sigma}} + \frac{\mu_0}{\squared{\tau}}}{\frac{n}{\squared{\sigma}} + \frac{1}{\squared{\tau}}}$
+    \item $\thetahatmae = \median{\theta|X} = \frac{\frac{n\xbar}{\squared{\sigma}} + \frac{\mu_0}{\squared{\tau}}}{\frac{n}{\squared{\sigma}} + \frac{1}{\squared{\tau}}}$
+    \item $\thetahatmap = \mode{\theta|X} = \frac{\frac{n\xbar}{\squared{\sigma}} + \frac{\mu_0}{\squared{\tau}}}{\frac{n}{\squared{\sigma}} + \frac{1}{\squared{\tau}}}$
 \end{itemize}
 
 \intermediatesubproblem{On a previous homework we showed that if $\Xoneton~|~\theta,\sigsq \iid \normnot{\theta}{\sigsq}$ then $\thetahatmle = \xbar$. Show that $\thetahatmmse$ is a shrinkage estimator and find $\rho$.}\spc{6}
 
+\begin{align*}
+    \thetahatmmse &= \frac{\frac{n\xbar}{\squared{\sigma}} + \frac{\mu_0}{\squared{\tau}}}{\frac{n}{\squared{\sigma}} + \frac{1}{\squared{\tau}}} \\
+                  &= \frac{\frac{n\xbar}{\squared{\sigma}} + \thetahatmle}{\frac{n}{\squared{\sigma}} + \frac{1}{\squared{\tau}}} \\
+                  &= \frac{\frac{\expe{\theta}}{\squared{\tau}}}{\frac{n}{\squared{\sigma}} + \frac{1}{\squared{\tau}}} \\ 
+                  &= (1-\rho)\thetahatmle + \rho\expe{\theta} \\
+             \rho &= \frac{\thetahatmmse - \thetahatmle}{\expe{\theta}-\thetahatmle}
+\end{align*}
 
 \intermediatesubproblem{Setup the integral to find $\cprob{X_*}{X}$ where $n_*=1$ but don't solve.}\spc{6}
 
+
+\begin{align*}
+    \prob{X_*|X} &= \int\prob{X_*|\theta, \squared{\sigma}}\prob{\theta|X, \squared{\sigma}}\,d\theta\ \\ 
+                 &= \int\normnot{\theta}{\sigma^2}\normnot{\theta_p}{\sigma^2_p}\,d\theta\ \\
+                 &= \int \exp{-\frac{1}{2\sigma^2} \squared{x_*-\theta}} \exp{-\frac{1}{2\sigma^2_p}\squared{x-\theta_p}}\, d\theta\
+\end{align*}
 
 \end{enumerate}
 
