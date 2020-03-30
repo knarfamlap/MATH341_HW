@@ -262,16 +262,16 @@ Therefore, $\gammanot{\sum{x_i}}{n}$
 \end{align*}
 \intermediatesubproblem{If $\alpha \notin \naturals$, create an \qu{extended negative binomial} r.v. and find its PMF. You can copy from Wikipedia.}\spc{3}
 
-\begin{align*}
-    \mathbb{P}(X;n,r,p) =
-    \frac{\binom{x+r-1}{x}p^x}
-    {(1-p)^{-r}-\sum^{n-1}_{i=0} \binom{i+r-1}{x}p^i}
- \end{align*}
+It is the posterior predictive result of the Poisson distribution given a prior Gamma. 
+It is called ther overdisperse Poisson because it has a greater variability. 
 
 \intermediatesubproblem{Why is the extended negative binomial r.v. also known as the gamma-Poisson mixture distribution? Why is it also called the \qu{overdispersed Poisson}?}\spc{5}
 
-It is the posterior predictive result of the Poisson distribution given a prior Gamma. 
-It is called ther overdisperse Poisson because it has a greater variability. 
+\begin{align*}
+    \prob{X;n,r,p} =
+    \frac{\binom{x+r-1}{x}p^x}
+    {(1-p)^{-r}-\sum^{n-1}_{i=0} \binom{i+r-1}{x}p^i}
+ \end{align*}
 
 \intermediatesubproblem{If you observe $0,3,2,4,2,6,1,0,5$, give a 90\% CR for $\theta$. Pick an principled objective (uninformative) prior.}\spc{5}
 
@@ -282,10 +282,14 @@ It is called ther overdisperse Poisson because it has a greater variability.
 
 \intermediatesubproblem{Using the data and the prior from (s), test if $\theta < 2$.}\spc{5}
 
+Let $H_0: \theta < 2$
+
 \begin{align*}
     pval = \prob{\theta < 2|X} &= pgamma(2, 24, 9) - pgamma(0, 24, 9) \\ 
                                &=  0.101
 \end{align*}
+
+Therefore, retain $H_0$ 
 
 \intermediatesubproblem{Using the data and the prior from (s), find the probability the next observation will be a 7. Leave in exact form then use a calculator to compute it to the nearest two significat digits.}\spc{5}
 
@@ -361,7 +365,7 @@ if $a=\frac{n\xbar}{\sigsq}$ and $b=\frac{n\theta^2}{2\sigsq}$
 \begin{align*}
     \prob{X_*|X} &= \int\prob{X_*|\theta, \squared{\sigma}}\prob{\theta|X, \squared{\sigma}}\,d\theta\ \\ 
                  &= \int\normnot{\theta}{\sigma^2}\normnot{\theta_p}{\sigma^2_p}\,d\theta\ \\
-                 &= \int \exp{-\frac{1}{2\sigma^2} \squared{x_*-\theta}} \exp{-\frac{1}{2\sigma^2_p}\squared{x-\theta_p}}\, d\theta\
+                 &= \int \exp{-\frac{1}{2\sigma^2} \squared{x_*-\theta}} \exp{-\frac{1}{2\sigma^2_p}\squared{\theta-\theta_p}}\, d\theta\
 \end{align*}
 
 \end{enumerate}
