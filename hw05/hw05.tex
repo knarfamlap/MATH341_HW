@@ -320,9 +320,9 @@ but where you see only \qu{$X$}, this is shorthand for all $n$ samples.}
 \hardsubproblem{Show that posterior of $\theta~|~X,~\sigsq$ is normal if $\theta \sim \normnot{\mu_0}{\tausq}$. Try to do it yourself and only copy from the notes if you have to.}\spc{10}
 
 \begin{align*}
-    \prob{\theta~|~X,~\sigsq} &\propto \prob{X~|~\sigsq}\mathbb{P}(\theta~|~\sigsq)\\
+    \prob{\theta~|~X,~\sigsq} &\propto \prob{X~|~\sigsq}\prob{\theta~|~\sigsq}\\
 &= e^{a\theta-b\theta^2}e^{\alpha\theta-\beta\theta^2}\\
-&= e^{(a+\alpha)\theta-(b+\beta)theta^2}\\
+&= e^{(a+\alpha)\theta-(b+\beta)\theta^2} \\
 &\propto \mathcal{N}\Big({\frac{a+\alpha}{2(b+\beta)}},\frac{1}{2(b+\beta)} \Big)
 \end{align*}
 
