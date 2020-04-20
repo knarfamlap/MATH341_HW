@@ -3,13 +3,12 @@
 \include{preamble}
 
 \newtoggle{professormode}
-\toggletrue{professormode} %STUDENTS: DELETE or COMMENT this line
 
 
 
 \title{MATH 341 / 650.3 Spring 2020 Homework \#6}
 
-\author{Professor Adam Kapelner} %STUDENTS: write your name here
+\author{Frank Palma Gomez} %STUDENTS: write your name here
 
 \iftoggle{professormode}{
 \date{Due by email, Monday 11:59PM, April 20, 2020 \\ \vspace{0.5cm} \small (this document last updated \today ~at \currenttime)}
@@ -53,12 +52,19 @@ NAME: \line(1,0){380}
 
 \easysubproblem{During the H-Bomb search in Spain and its coastal regions, RAdm. William Guest was busy sending ships here, there and everywhere even if the ships couldn't see the bottom of the ocean. How did Richardson use those useless searches?}\spc{2}
 
+William Guest used a grid based on location to compute the probability that a bomb is in any location of the grid. 
+
 \intermediatesubproblem{When the Navy was looking for the \textit{Scorpion} submarine, they used Monte Carlo methods (which we will see in class soon). How does the description of these methods by Richardson (p199) remind you of the \qu{sampling} techniques to approximate integrals we did in class?}\spc{4}
+
+Using Bayes, he assigned probabities to generate new probabities and continued repeating the process for 10,000 times. 
 
 \intermediatesubproblem{What is a Kalman filter? Read about it online and write a few descriptive sentences.}\spc{4}
 
+Kalman filter is an algorithm that produces estimates of unknown variables over time. It does so by estimating the joint probability for a variable for a period of time. As the algorithm continues to predict, it updates to better its prediction. 
 
 \intermediatesubproblem{Where do frequentist methods practically break down? (end of chapter 15)}\spc{4}
+
+Due to its objectivity, alternative methods cannot compare. 
 
 \end{enumerate}
 
@@ -69,29 +75,110 @@ NAME: \line(1,0){380}
 
 \hardsubproblem{If the prior is $\theta \sim \normnot{\mu_0}{\sigsq / n_0}$, find $\cprob{X_*}{X, \sigsq}$ where $n_*=1$. Try to do it yourself and if you get stuck, look in the notes. Note the change of parameterization from the notes!}\spc{20}
 
+\begin{align*}
+    \cprob{X_*}{X, \sigsq} 
+        &=\int_\Theta \cprob{X_*}{\theta, \sigsq} \cprob{\theta}{\sigsq} d\theta \\
+        &=\int_\mathbb{R} \normpdf{X_*}{\theta}{\sigsq} \normpdf{\theta}{\theta_p}{\sigsq_p} d\theta \\
+        &=\int_\mathbb{R} e^{(\frac{ X_*}{\sigsq}  + \frac{\theta_p}{\sigsq_p})\theta  - ( \frac{1}{2\sigsq} + \frac{1}{2\sigsq_p})\theta^2} d\theta \\
+        &\propto \normnot{\frac{a}{2b}}{\frac{1}{2b}} \\
+    \end{align*}
+    Where $a = \frac{X_*}{\sigsq} + \frac{\theta_p}{\sigsq_p}$ and $b = \frac{1}{2\sigsq} + \frac{1}{2\sigsq_p}$
+    \begin{align*} 
+        \\
+        \normnot{\frac{a}{2b}}{\frac{1}{2b}}  &= \frac{1}{2\pi\frac{1}{2b}} e^{\frac{1}{2\frac{1}{2b}}(\theta - \frac{a}{2b})^2 } \\
+        &= \frac{1}{\sqrt{\frac{\pi}{b}}} e^{-b\theta^2 + a\theta + \frac{a^2}{4b}} \\
+        &= \frac{1}{\sqrt{\frac{\pi}{b}}} e^{\frac{a^2}{4b}}e^{a\theta - b\theta^2 }
+\end{align*}
+
+Therefore, 
+\begin{align*}
+    \cprob{X_*}{X, \sigsq} 
+        &=e^{\frac{X_*^2}{2\sigsq}}\sqrt{\frac{\pi}{\frac{1}{2\sigsq} + \frac{1}{2\sigsq_p}}} 
+        e^{\frac{-(\frac{ X_*}{\sigsq}  + \frac{\theta_p}{\sigsq_p})^2}{\frac{2}{\sigsq} + \frac{2}{2\sigsq_p}}}
+        \int_\mathbb{R} e^{(\frac{ X_*}{\sigsq}  + \frac{\theta_p}{\sigsq_p})\theta  - ( \frac{1}{2\sigsq} + \frac{1}{2\sigsq_p})\theta^2} d\theta
+\end{align*}
+
 \extracreditsubproblem{Find the predictive distribution of $X^*~|~X,~\sigsq$ $n^* > 1$ and $\theta \sim \normnot{\mu_0}{\sigsq / n_0}$.}\spc{0}
 
 \easysubproblem{What is the kernel of $\sigsq~|~X,~\theta$?}\spc{2}
 
+\begin{align*}
+    \invgammanot{\frac{n_0}{2}}{\frac{n_0 \sigsq_0}{2}}
+\end{align*}
+
 \easysubproblem{What is the parameter space of the inverse gamma r.v.? What is its mean? Mode? Is there a formula for the median in closed form?}\spc{2}
 
+Where $\alpha, \beta > 0$ 
+
+\begin{itemize}
+    \item $\expe{Y} = \frac{\beta}{\alpha-1}$ if $\alpha > 1$
+    \item $\mode{Y} = \frac{\beta}{\alpha+1}$ 
+    \item $\median{Y} = \texttt{qinvgamma}(0.5, \alpha, 1)$   
+\end{itemize}
 
 \hardsubproblem{Show that posterior of $\sigsq~|~X,~\theta$ is inverse gamma (and find the posterior parameters) if $\prob{\theta} \propto 1$. Try to do it yourself and only copy from the notes if you have to.}\spc{5}
 
 \hardsubproblem{Show that posterior of $\sigsq~|~X,~\theta$ is inverse gamma (and find the posterior parameters) if $\theta \sim \invgammanot{\overtwo{n_0}}{\overtwo{n_0 \sigsq_0}}$. Try to do it yourself and only copy from the notes if you have to.}\spc{5}
 
+\begin{align*}
+    \cprob{\sigsq}{X,\theta} 
+        &\propto (\sigsq)^{-\frac{n}{2}}e^{-\frac{1}{2\sigsq}\Sigma(x_i-\theta)^2} \cprob{\sigsq}{\theta} \\
+        &=(\sigsq)^{-\frac{n}{2}}e^{\frac{n\sigsq_{MLE}/2}{\sigsq}}\Big( (\sigsq)^{-\frac{n_0}{2}-1} e^{\frac{n_0\sigsq_0/2}{\sigsq}}  \Big)\\
+        &=(\sigsq)^{-\frac{n+n_0}{2}-1}e^{-\big(\frac{(n\sigsq_{MLE} + n_0\sigsq_0)/2}{\sigsq}\big)}\\
+        &\propto \invgammanot{\frac{n+n_0}{2}}{\frac{n\sigsq_{MLE} + n_0\sigsq_0}{2}}
+\end{align*}
 
 \easysubproblem{What is the pseudodata interpretation of the hyperparameters $n_0$ and $\sigsq_0$?}\spc{1}
 
+\begin{itemize}
+    \item $n_0$: number of pseudo-observations 
+    \item $\sigsq_0$: variance of the pseudo-observations
+\end{itemize}
+
 \easysubproblem{Based on the pseudodata interpretation of the hyperparameters $n_0$ and $\sigsq_0$, what would Haldane's prior be and why?}\spc{1}
+
+\begin{align*}
+    \intertext{If $n_0$ then its prior is, }
+    \cprob{\sigsq}{\theta} &= \invgammanot{0}{0} \\   
+    \intertext{then its posterior is, } \\ 
+    \cprob{\sigsq}{\theta, x} &= \invgammanot{\frac{n}{2}}{\frac{n\sigsq_{MLE}}{2}} \\
+    \intertext{only proper when $n \geq 1$}
+\end{align*}
 
 \hardsubproblem{In the Laplace prior, what are the hyperparameters? Does this make sense?}\spc{2}
 
+\begin{align*}
+    \cprob{\sigsq}{\theta, x} \propto \cprob{x}{\sigsq, \theta} \propto (\sigsq)^{-(n/2 - 1)-1} e^{\frac{n \hat{\sigsq}_{MLE}}{\sigsq}} \propto \invgammanot{\frac{n-2}{2}}{\frac{n \hat{\sigsq}_{MLE}}{2}} 
+    \intertext{only proper when $n \geq 3$}
+\end{align*} 
+
 \intermediatesubproblem{[MA] Find the Jeffrey's Prior for inference on $\sigsq$ if $\theta$ is known.}\spc{11}
+
+\begin{align*}
+    \ell(\sigsq; \theta, x) &= -\frac{n}{2} ln(2\pi) -\frac{n}{2} ln(\sigsq) -\frac{1}{2\sigsq}\Sigma(x_i-\theta)^2\\
+    \ell'(\sigsq; \theta, x) &= -\frac{n}{2} \frac{1}{\sigsq} + \frac{1}{2(\sigsq)^2} \Sigma(x_i-\theta)^2\\
+    -\ell'(\sigsq; \theta, x) &= -\frac{n}{2} \frac{1}{(\sigsq)^2} + \frac{1}{(\sigsq)^3} \Sigma(x_i-\theta)^2\\
+    \I(\sigsq,\theta) &= \expe{\ell''(\sigsq;\theta,x)} = -\frac{n}{2} \frac{1}{(\sigsq)^2} + \frac{1}{(\sigsq)^3} \Sigma\mathbb{E}_x[x_i-\theta]^2\\
+    \I(\sigsq,\theta) &= -\frac{n}{2} \frac{1}{(\sigsq)^2} + \frac{1}{(\sigsq)^3} n\sigsq = n \Big(-\frac{1}{2(\sigsq)^2} + \frac{1}{(\sigsq)^2}\Big) = \frac{1}{2(\sigsq)^2} = \frac{n}{2}(\sigsq)^{-2}\\
+    P_J (\sigsq~|~\theta) &\propto \sqrt{\I(\sigsq;\theta)} = \sqrt{\frac{n}{2}(\sigsq)^{-2}} \propto (\sigsq)^{-2} \propto \invgammanot{0}{0}
+\end{align*}
 
 \easysubproblem{Provide all three Bayesian estimates for $\sigsq$.}\spc{1}
 
+\begin{align*}
+    \hat{\sigsq}_{MMSE} &= \frac{ n \hat{\sigsq}_{MLE} + n_0 \sigsq_0 }{ n + n_0 - 2}\\
+    \hat{\sigsq}_{MAP} &= \frac{ n \hat{\sigsq}_{MLE} + n_0 \sigsq_0 }{ n + n_0 + 2}\\
+    \hat{\sigsq}_{MMAE} &= qinvgamma \big(0.5, \frac{ n + n_0}{2}, \frac{n \hat{\sigsq}_{MLE} + n_0 \sigsq_0 }{2}\big)
+\end{align*}
+
 \intermediatesubproblem{Show that the $\thetahatmmse$ is a linear shrinkage estimator.}\spc{2}
+
+\begin{align*}
+    \hat{\sigsq_{MMSE}} 
+        &= \frac{ n \hat{\sigsq}_{MLE} }{ n + n_0 - 2} + \frac{ n_0 \sigsq_0 }{ n + n_0 - 2} \Big(\frac{n_0 - 2}{n_0 - 2}\Big)\\
+        &= \Big(\frac{n}{n+n_0-2}\Big)\hat{\sigsq}_{MLE} + \frac{n_0-2}{n+n_0-2} \mathbb{E}[\sigsq]\\
+        &= (1-\rho)\hat{\sigsq}_{MLE} + \rho \mathbb{E}[\sigsq]
+    \end{align*}
 
 \hardsubproblem{[MA] Show that predictive distribution of $X^*~|~X,~\theta$ is non-standard Student's $t$ distribution if $n^*=1$ and $\theta \sim \invgammanot{\overtwo{n_0}}{\overtwo{n_0 \sigsq_0}}$ by solving the integral. Try to do it yourself and only copy from the notes if you have to!}\spc{25}
 
@@ -119,17 +206,38 @@ Our goal here is to determine the mean price at a certain car dealership in Asto
 
 \easysubproblem{Assume that each Accord's price at the Astoria dealership is normal and $\iid$ given the parameters. Is this a good model? Why or why not? There is no \qu{correct} answer here but I expect you to defend whatever answer you write using the concepts we discussed in class.} \spc{6}
 
+It's a good model because the support of the normal model is all real numbers so the models appropriately fits our problem.  
+
 \easysubproblem{Despite what you wrote in (b), assume $\iid$ for the rest of the problem. The nationwide variance for a Honda Accord selling price we're going to assume is $\sigsq = \$1000^2$. Given a sample with average $\xbar$ and sample size $n$, what is the distribution of the mean price of a car from this shady Astoria dealership? Assume an uninformative prior of your choice but ensure to explicitly state it.}\spc{5}
+
+Let $\prob{\theta} \propto 1$ be the Laplace Prior then, 
+\begin{align*}
+    \normnot{\xbar}{\frac{\sigsq}{n}} &= \normnot{\xbar}{\frac{\squared{1000}}{n}}
+\end{align*}
 
 \easysubproblem{You and your colleague go down to the Astoria dealership undercover and ask to buy a Honda. After much negotiation, they will sell it to you for \$19,000 and they will sell it to your colleague for \$18,200 but they sense something suspicious so you hesitate to send another one of your guys down there to do another faux negotiation. Unfortunately, we're going to have to estimate the mean with just $x_1=19000$ and $x_2 = 18200$. What is your best guess of the mean price of Honda Accords sold here? Assume your prior from (a). \compexpl }\spc{2}
 
+\begin{align*}
+    \thetahatmmse = \xbar = \frac{19000 + 18200}{2} = 18600   
+\end{align*}
+
 \easysubproblem{What is the shrinkage value (which we have been denoting $\rho$) for this estimate? \compexpl}\spc{3}
+
+\begin{align*}
+    \rho &= \frac{1}{1 + \frac{n \taua}{\sigsq}} =  
+\end{align*}
 
 \intermediatesubproblem{Based on this data, we wish to test if this dealership is selling Honda Accords below the manufacturer sugested retail price (MSRP) of \$22,205 --- if so, they would be subject to a fine. Calculate a $p$-value for this test below by using notation from Table~\ref{tab:eqs} but do not solve numerically.}\spc{4}
 
+\begin{align*}
+    \prob{X < \$22,205} = \texttt{pnorm}(22205, \xbar, \frac{\sigsq}{n}) = \texttt{pnorm}(22205, 18600, \frac{\squared{1000}}{2}) 
+\end{align*}
+
 \intermediatesubproblem{What is the probability I get a really good deal --- that I can buy a car from these Astoria people for under \$17,000? Use the notation from Table~\ref{tab:eqs} but do not solve numerically.}\spc{3}
 
-
+\begin{align*}
+    \prob{X < \$17,000} &= \text{pnorm}(17000, \xbar, \frac{\sigsq}{n}) = \text{pnorm}(17000, 18600, \frac{\squared{1000}}{2})
+\end{align*}
 
 \end{enumerate}
 
@@ -152,17 +260,54 @@ This machine fills 12oz plastic bottles. There is no doubt the mean amount of li
 
 \easysubproblem{Write a model below for the amount of milk in each of the $n$ bottles. Hint: use the normal model!}\spc{3}
 
+\begin{align*}
+    s^2 &= \frac{1}{n-1}\sum_{i=1}^{n} \squared{x_i - \xbar} = 0.081 \\ \\
+     & \normnot{12}{\frac{0.081}{21}}
+\end{align*}
+
 \easysubproblem{Find the MLE for $\sigsq$ (compute the estimate as a number, not derive it analytically).}\spc{1}
 
+\begin{align*}
+    \sigsqhatmle{} &= \frac{1}{n} \sum_{i=1}^{n} \squared{x_i - 12} \\ 
+    &= 1.94
+\end{align*}
+
+
 \easysubproblem{Under the Jeffrey's prior for $\sigsq$, find the posterior of $\sigsq$ by solving for the parameter values.}\spc{3}
+
+\begin{align*}
+    SSE &= (n - 1)\sigsq  = (20) (1.94) = 38.8 \\ \\ 
+   & \invgammanot{\frac{21}{2}}{\frac{38.8}{2}} &
+\end{align*}
+
 
 \intermediatesubproblem{Find a left-sided credible region for $\sigsq$. This will give the upper bound for the machine's variance.}\spc{3}
 
 
+\begin{align*}
+    CR_{\sigsq, 95\%} &= \texttt{qinvgamma}({0.005}, {10.5}, {0.81})  \\
+    &= 0.170
+\end{align*}
+
+
 \intermediatesubproblem{The bottles are actually 13.5oz. This means that you wish to test if $\sigsq > 0.352$ for if so, about 1/100,000 of the bottles will be overfull and that's the tolerance of the factory. Do this test.}\spc{6}
 
+\begin{align*}
+    H_{0} &: \sigsq > 0.352 \\ 
+    H_{a} &: \sigsq \leq 0.352 \\
+    \prob{\sigsq \leq 0.352} &= 1 - \texttt{pinvgamma}(0.352, 10.5, 1.94) \\ 
+    &= 0.038
+\end{align*} 
+
+Accept $H_{0}$
 
 \intermediatesubproblem{Find the probability the next bottle has more than 13oz of liquid.}\spc{3}
+
+\begin{align*}
+    \prob{X^{*} > 13 ~|~ X, \theta} &= 1 - \texttt{ptscale}(13, n, \mu, \sigsqhatmle{}) \\  
+    \prob{X^{*} > 13 ~|~ X, \theta} &= 1 - \texttt{ptscale}(13, 21, 12, 1.94) \\ 
+    &= T_{50}(12, 1.94)
+\end{align*}
 
 \end{enumerate}
 
