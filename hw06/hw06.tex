@@ -122,17 +122,17 @@ Where $\alpha, \beta > 0$
 
 \begin{align*}
     \cprob{\sigsq}{X,\theta} 
-        &\propto (\sigsq)^{-\frac{n}{2}}e^{-\frac{1}{2\sigsq}\Sigma(x_i-\theta)^2} \cprob{\sigsq}{\theta} \\
-        &=(\sigsq)^{-\frac{n}{2}}e^{\frac{n\sigsq_{MLE}/2}{\sigsq}}\Big( (\sigsq)^{-\frac{n_0}{2}-1} e^{\frac{n_0\sigsq_0/2}{\sigsq}}  \Big)\\
-        &=(\sigsq)^{-\frac{n+n_0}{2}-1}e^{-\big(\frac{(n\sigsq_{MLE} + n_0\sigsq_0)/2}{\sigsq}\big)}\\
-        &\propto \invgammanot{\frac{n+n_0}{2}}{\frac{n\sigsq_{MLE} + n_0\sigsq_0}{2}}
+        &\propto (\sigsq)^{-\frac{n}{2}}e^{-\frac{1}{2\sigsq}\sum(x_i-\theta)^2} \cprob{\sigsq}{\theta} \\
+        &=(\sigsq)^{-\frac{n}{2}}e^{\frac{n\sigsqhat_{MLE}/2}{\sigsq}}\Big( (\sigsq)^{-\frac{n_0}{2}-1} e^{\frac{n_0\sigsq_0/2}{\sigsq}}  \Big)\\
+        &=(\sigsq)^{-\frac{n+n_0}{2}-1}e^{-\big(\frac{(n\sigsqhat_{MLE} + n_0\sigsq_0)/2}{\sigsq}\big)}\\
+        &\propto \invgammanot{\frac{n+n_0}{2}}{\frac{n\sigsqhat_{MLE} + n_0\sigsq_0}{2}}
 \end{align*}
 
 \easysubproblem{What is the pseudodata interpretation of the hyperparameters $n_0$ and $\sigsq_0$?}\spc{1}
 
 \begin{itemize}
-    \item $n_0$: number of pseudo-observations 
-    \item $\sigsq_0$: variance of the pseudo-observations
+    \item $n_0$ is the number of pseudo-observations 
+    \item $\sigsq_0$ is the variance of the pseudo-observations
 \end{itemize}
 
 \easysubproblem{Based on the pseudodata interpretation of the hyperparameters $n_0$ and $\sigsq_0$, what would Haldane's prior be and why?}\spc{1}
@@ -148,37 +148,38 @@ Where $\alpha, \beta > 0$
 \hardsubproblem{In the Laplace prior, what are the hyperparameters? Does this make sense?}\spc{2}
 
 \begin{align*}
-    \cprob{\sigsq}{\theta, x} \propto \cprob{x}{\sigsq, \theta} \propto (\sigsq)^{-(n/2 - 1)-1} e^{\frac{n \hat{\sigsq}_{MLE}}{\sigsq}} \propto \invgammanot{\frac{n-2}{2}}{\frac{n \hat{\sigsq}_{MLE}}{2}} 
-    \intertext{only proper when $n \geq 3$}
+    \cprob{\sigsq}{\theta, x} &\propto \cprob{x}{\sigsq, \theta} \\ 
+    &\propto (\sigsq)^{-(n/2 - 1)-1} e^{\frac{n \hat{\sigsq}_{MLE}}{\sigsq}} \\ 
+    &\propto \invgammanot{\frac{n-2}{2}}{\frac{n \hat{\sigsq}_{MLE}}{2}} 
+    \intertext{when $n \geq 3$}
 \end{align*} 
 
 \intermediatesubproblem{[MA] Find the Jeffrey's Prior for inference on $\sigsq$ if $\theta$ is known.}\spc{11}
 
 \begin{align*}
-    \ell(\sigsq; \theta, x) &= -\frac{n}{2} ln(2\pi) -\frac{n}{2} ln(\sigsq) -\frac{1}{2\sigsq}\Sigma(x_i-\theta)^2\\
-    \ell'(\sigsq; \theta, x) &= -\frac{n}{2} \frac{1}{\sigsq} + \frac{1}{2(\sigsq)^2} \Sigma(x_i-\theta)^2\\
-    -\ell'(\sigsq; \theta, x) &= -\frac{n}{2} \frac{1}{(\sigsq)^2} + \frac{1}{(\sigsq)^3} \Sigma(x_i-\theta)^2\\
-    \I(\sigsq,\theta) &= \expe{\ell''(\sigsq;\theta,x)} = -\frac{n}{2} \frac{1}{(\sigsq)^2} + \frac{1}{(\sigsq)^3} \Sigma\mathbb{E}_x[x_i-\theta]^2\\
-    \I(\sigsq,\theta) &= -\frac{n}{2} \frac{1}{(\sigsq)^2} + \frac{1}{(\sigsq)^3} n\sigsq = n \Big(-\frac{1}{2(\sigsq)^2} + \frac{1}{(\sigsq)^2}\Big) = \frac{1}{2(\sigsq)^2} = \frac{n}{2}(\sigsq)^{-2}\\
-    P_J (\sigsq~|~\theta) &\propto \sqrt{\I(\sigsq;\theta)} = \sqrt{\frac{n}{2}(\sigsq)^{-2}} \propto (\sigsq)^{-2} \propto \invgammanot{0}{0}
+    \ell(\sigsq; \theta, x) &= -\frac{n}{2}\ln{2\pi}  -\frac{n}{2} \ln{\sigsq} -\frac{1}{2\sigsq}\sum_{i=1}^{n}(x_i-\theta)^2\\
+    \ell'(\sigsq; \theta, x) &= -\frac{n}{2} \frac{1}{\sigsq} + \frac{1}{2(\sigsq)^2} \sum_{i=1}^{n}(x_i-\theta)^2\\
+    -\ell'(\sigsq; \theta, x) &= -\frac{n}{2} \frac{1}{(\sigsq)^2} + \frac{1}{(\sigsq)^3} \sum_{i=1}^{n}(x_i-\theta)^2\\
+    \I(\sigsq,\theta) &= \expe{\ell''(\sigsq;\theta,x)} = -\frac{n}{2} \frac{1}{(\sigsq)^2} + \frac{1}{(\sigsq)^3} \sum_{i=1}^{n}\expe{x_i - \theta}^2 \\
+    \I(\sigsq,\theta) &= \frac{n}{2}(\sigsq)^{-2}\\
+    P_J (\sigsq~|~\theta) &\propto \sqrt{\I(\sigsq,\theta)} = \sqrt{\frac{n}{2}(\sigsq)^{-2}} \propto (\sigsq)^{-2} \propto \invgammanot{0}{0}
 \end{align*}
 
 \easysubproblem{Provide all three Bayesian estimates for $\sigsq$.}\spc{1}
 
-\begin{align*}
-    \hat{\sigsq}_{MMSE} &= \frac{ n \hat{\sigsq}_{MLE} + n_0 \sigsq_0 }{ n + n_0 - 2}\\
-    \hat{\sigsq}_{MAP} &= \frac{ n \hat{\sigsq}_{MLE} + n_0 \sigsq_0 }{ n + n_0 + 2}\\
-    \hat{\sigsq}_{MMAE} &= qinvgamma \big(0.5, \frac{ n + n_0}{2}, \frac{n \hat{\sigsq}_{MLE} + n_0 \sigsq_0 }{2}\big)
-\end{align*}
+\begin{itemize}
+    \item $\sigsqhat_{MMSE} = \frac{n\sigsqhatmle{} + n_0\sigsq}{n + n_0 - 2}$ 
+    \item $\sigsqhat_{MAP} = \frac{ n \hat{\sigsq}_{MLE} + n_0 \sigsq_0 }{ n + n_0 + 2}$
+    \item $\sigsqhat_{MMAE} = \texttt{qinvgamma} \big(0.5, \frac{ n + n_0}{2}, \frac{n \hat{\sigsq}_{MLE} + n_0 \sigsq_0 }{2}\big)$
+\end{itemize}
 
 \intermediatesubproblem{Show that the $\thetahatmmse$ is a linear shrinkage estimator.}\spc{2}
 
-\begin{align*}
-    \hat{\sigsq_{MMSE}} 
-        &= \frac{ n \hat{\sigsq}_{MLE} }{ n + n_0 - 2} + \frac{ n_0 \sigsq_0 }{ n + n_0 - 2} \Big(\frac{n_0 - 2}{n_0 - 2}\Big)\\
-        &= \Big(\frac{n}{n+n_0-2}\Big)\hat{\sigsq}_{MLE} + \frac{n_0-2}{n+n_0-2} \mathbb{E}[\sigsq]\\
-        &= (1-\rho)\hat{\sigsq}_{MLE} + \rho \mathbb{E}[\sigsq]
-    \end{align*}
+ \begin{align*}
+    \sigsqhat_{MMSE} &= \frac{n\sigsqhatmle{}}{n + n_0 - 2} + \frac{n_0 \sigsq_0}{ n + n_0 - 2} (\frac{n_0 - 2}{n_0 - 2}) \\
+    &= (\frac{n}{n+n_0-2}\sigsqhat_{MLE}+ \frac{n_0-2}{n+n_0-2} \expe{\sigsq}\\
+    &= (1-\rho)\hat{\sigsq}_{MLE} + \rho \mathbb{E}[\sigsq]
+ \end{align*}
 
 \hardsubproblem{[MA] Show that predictive distribution of $X^*~|~X,~\theta$ is non-standard Student's $t$ distribution if $n^*=1$ and $\theta \sim \invgammanot{\overtwo{n_0}}{\overtwo{n_0 \sigsq_0}}$ by solving the integral. Try to do it yourself and only copy from the notes if you have to!}\spc{25}
 
