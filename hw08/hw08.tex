@@ -9,7 +9,7 @@
 
 \title{MATH 341 / 650.3 Spring 2020 Homework \#8}
 
-\author{Frank Palma Gomez} %STUDENTS: write your name here
+\author{} %STUDENTS: write your name here
 
 \iftoggle{professormode}{
 \date{Due by email, Tuesday 11:59PM, May 19, 2020 \\ \vspace{0.5cm} \small (this document last updated \today ~at \currenttime)}
@@ -250,23 +250,43 @@ It combines the normal and the inverse gamma to make a normal inverse gamma dist
 
 \easysubproblem{Consider the mixture-of-two-normals model we looked at in class. Write the likelihood below.}\spc{4}
 
+\begin{align*}
+    \prob{\theta_1, \sigsq_1, \theta_2, \sigsq_2, ~\rho} &= \prod_{i=1}^{n} (\rho \frac{1}{\sqrt{2\pi\sigsq_1}}\exp{-\frac{1}{2\sigsq_1} \squared{x_i-\theta_1}} + (1 - \rho) \frac{1}{\sqrt{2\pi\sigsq_2}}\exp{-\frac{1}{2\sigsq_2}\squared{x_i-\theta_2}})
+\end{align*}
+
 \easysubproblem{Consider the model in (a) with $\theta_1 = 0,~\theta_2 =4,~\sigsq_1 = 2,~\sigsq_2 = 1$ and $\rho = 2$. These are the targets of inference so pretend you don't know their values! Run the code on lines 1--16 of the code at the link \href{https://github.com/kapelner/QC_Math_341_Spring_2017/blob/master/lectures/lec21_demos/mixture_model/mixture_model_gibbs.R}{here} by copying them from the website and pasting them into an R console. This will plot a realization of the data with those parameters. Can you identify that it's a mixture of two normals visually?}\spc{1}
+
+   Yes since there are two humps. Some will samples belong to the first and some to the second one. 
 
 \easysubproblem{Consider the model in (a) but we are blinded to the true values of the parameters given in (b) and we wish to estimate them via a Gibbs sampler. Run the code on lines 19--92 of the code at the link \href{https://github.com/kapelner/QC_Math_341_Spring_2017/blob/master/lectures/lec21_demos/mixture_model/mixture_model_gibbs.R}{here} which will run 10,000 iterations. What iteration number do you think the sampler converged?}\spc{1}
 
+    Iteration number of about 50
+
 \easysubproblem{Now we wish to assess autocorrelation among the chains from the Gibbs sampler run in (d). Run the code on lines 96--103 of the code at the link \href{https://github.com/kapelner/QC_Math_341_Spring_2017/blob/master/lectures/lec21_demos/mixture_model/mixture_model_gibbs.R}{here}. What do we mod our chains by to thin them out so the chains represent independent samples?}\spc{3}
+
+
+    We can modify the thinning, include more samples, or more iterations. 
 
 \easysubproblem{Run the code on lines 120--152 of the code at the link \href{https://github.com/kapelner/QC_Math_341_Spring_2017/blob/master/lectures/lec21_demos/mixture_model/mixture_model_gibbs.R}{here} which will first burn and thin the chains. Explain these five plots. What distributions do these frequency histograms approximate?}\spc{4}
 
+    The blue line represents the best guess for each of the five parameters. These distograms approximate the normal distribution. 
+
 \hardsubproblem{Provide and approximate $CR_{\rho, 95\%}$. Does it capture the true value of $\rho$?}\spc{4}
+
+    \begin{align*}
+        \text{CR}_{\rho, 95\%} &= [0.235, 0.375] \text{, It does not capture $\rho$}
+    \end{align*}
 
 \hardsubproblem{Explain carefully how you would approximate $\cprob{X^*}{X}$.}\spc{4}
 
 
 \hardsubproblem{Explain carefully how you would approximate the probability that the 17th observation belonged to the $\normnot{\theta_1}{\sigsq_1}$ distribution.}\spc{4}
 
+    Take th expectation of the best guess. With that you can see the probability if the 17th observation belongs to $\normnot{\theta_1}{\sigsq_1}$
+
 \easysubproblem{If one of the $\theta$'s did not have a known conditional distribution, which algorithm could you use? Would this algorithm take longer or shorter to converge than the Gibbs sampler you've seen here?}\spc{3}
 
+    You could use grid sampling. This algorithm would take longer to converge. 
 
 \extracreditsubproblem{Explain carefully how you would test if $\theta_1 \neq \theta_2$.}\spc{4}
 
@@ -287,16 +307,51 @@ An experiment was run with someone claiming they have ESP. They tried to affect 
 
 \easysubproblem{What is the MLE for the probability of the event?}\spc{1}
 
+\begin{align*}
+    \thetahatmmse = \xbar = \frac{1}{n} \sum x_i = 0.5001
+\end{align*}
+
 \easysubproblem{Run a two-sided frequentist test at $\alpha = 5\%$ and report the decision (i.e. retain or reject) and the $p$ value.}\spc{2}
+
+\begin{align*}
+    \text{RR} &= [0.5 ~\pm~ 2\sqrt{\frac{0.5(1-0.5)}{104, 490, 000}}] = [0.49, 0.50] \\ 
+    \text{H}_0 &: \theta = 0.5 \\ 
+    \text{H}_a &: \theta \neq 0.5 \\ 
+    \theta &\in \text{RR}_{\theta, 95\%} \text{ Retain $H_0$ } \\ 
+    P_{val} &= 0.003 < \alpha = 0.5
+\end{align*}
 
 \intermediatesubproblem{Run a two-sided Bayesian test assuming the principle of indifference. Use the equivalence region approach with $\delta = 0.01$. Report the decision (i.e. retain or reject) and the $p$ value.}\spc{3}
 
+\begin{align*}
+    \text{H}_0 &: \theta = 0.5 \\ 
+    \text{H}_a &: \theta \neq 0.5 \\ 
+   \text{CR}_{\theta, 95\%} &= [\text{qbeta}(0.025, x + 1, n - x + 1), \text{qbeta}(0.975, x+1, n-x+1)] \\ 
+    &= [0.50008567, 0.5002774]
+\end{align*}
+
+Ratain $H_0$ since $\theta \in $ CR$_{\theta, 95\%}$ 
 
 \hardsubproblem{Calculate the Bayes Factor $B$ where the alternative hypothesis of $\theta \neq 0.5$ can be summed up with $\theta \sim \stduniform$.}\spc{6}
+
+\begin{align*}
+    \text{H}_0 &: \theta = 0.5 \\ 
+    \text{H}_a &: \theta \neq 0.5 \\ 
+    \alpha &= 5\% \\ 
+    \text{B} &= \frac{\text{B}(52,263,971, ~52,226,031)}{(0.5)^{104, 490, 000}} \\
+    &\approx 0.33
+    % \text{B} &= \text{B}
+\end{align*}
+
+Retain $H_0$ 
 
 
 
 \hardsubproblem{Try to reconcile parts (b), (c), (d), (e). Why are there different answers? What is going on??}\spc{6}
+
+    With the frequentist pval, bayesian pval, and Bayes Factor B we access "statistical significance". We could also messure "clinical significance", how important the actual effect of theta is. 
+    Bayes factors puts both of these ideas together. 
+
 \end{enumerate}
 
 \end{document}
