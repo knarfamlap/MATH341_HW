@@ -161,7 +161,7 @@ Since both models have their own conjugate models. When you combine two conjugat
 \easysubproblem{Outline the systematic sweep Gibbs Sampler algorithm below (in your notes).}
 
 \begin{enumerate}
-    \item Find reasonable value for  $\theta(\theta_0=\theta)$
+    \item Find reasonable value for  $\theta_0=\theta$
     \item Sample $\sigsq_1$ from $\cprob{\sigsq}{X,\theta}$ where $\theta_0=\theta$
     \item Sample $\theta_1$ from $\cprob{\theta}{X,\sigsq}$ where $\sigsq=\sigsq_1$
     \item Sample  $\sigsq_2$ from $\cprob{\sigsq}{X,\theta}$ where $\theta=\theta_1$
@@ -214,9 +214,9 @@ Since both models have their own conjugate models. When you combine two conjugat
 \easysubproblem{Run the code on lines 91--121 of the code at the link \href{https://github.com/kapelner/QC_Math_341_Spring_2017/blob/master/lectures/lec20_demos/poisson_gamma_change_pt.R}{here} which will first burn and thin the chains. Explain these three plots. What distributions do these frequency histograms approximate? You must have $\prob{\text{something}}$ in your answer. What are the blue lines? What are the red lines? What are the grey lines? Read the code if you have to for the answers.}
 \begin{itemize}
     \item Histograms are approximations for: $\cprob{\lambda_1}{X_1, \cdots, X_n, \lambda_2, m}, \cprob{\lambda_2}{X_1, \cdots, X_n, \lambda_1, m}$, $\cprob{m}{X_1, \cdots, X_n, \lambda_1, \lambda_2}$.
-    \item The blue line represent the best guesss or the means for $(\lambda_1 =1.6,\lambda_2 =3.25, m = 9.4)$.
-    \item The red lines represent the true values where $(\lambda_1 =2,\lambda_2 =4, m = 10)$.
-    \item The grey lines represent the credible regions of $95\%$ where $(\lambda_1:[0.7,2.7],\lambda_2:[2.4,4.2], m:[2,19])$.
+    \item The blue line represent the best guesss or the means for $\lambda_1 =1.6,\lambda_2 =3.25, m = 9.4$.
+    \item The red lines represent the true values where $\lambda_1 =2,\lambda_2 =4, m = 10$.
+    \item The grey lines represent the credible regions of $95\%$ where $\lambda_1:[0.7,2.7],\lambda_2:[2.4,4.2], m:[2,19]$.
 \end{itemize}
 
 \hardsubproblem{Test the following hypothesis: $H_0: m \leq 15$ by approximating the $p$-value from one of the plots in (e).}
