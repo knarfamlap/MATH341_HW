@@ -9,7 +9,7 @@
 
 \title{MATH 341 / 650.3 Spring 2020 Homework \#8}
 
-\author{} %STUDENTS: write your name here
+\author{Frank Palma Gomez} %STUDENTS: write your name here
 
 \iftoggle{professormode}{
 \date{Due by email, Tuesday 11:59PM, May 19, 2020 \\ \vspace{0.5cm} \small (this document last updated \today ~at \currenttime)}
@@ -52,20 +52,20 @@ NAME: \line(1,0){380}
 
 \easysubproblem{What do the computer scientists who adopted Bayesian methods care most about and whose view do they subscribe to? (p233)}
 \begin{flushleft}
-    Computer scientist cared only about results and now they subscribe to John Tukey's view.
+  They cared about results and they subscribe to John Tukey's view.
 \end{flushleft}
 
 \easysubproblem{How was \qu{Stanley} able to cross the Nevada desert?}
 \begin{flushleft}
-    Stanley was moving in an average speed, its camera took images of the route and the computer estimated the probability of various obstacles. 
-    As the robot navigated sharp turns and cliffs and generally stayed on course, and it slowed down to avoid even unlikely catastrophes.
+    He moved at an average speed. As the camera took picture, the computer computed the probability of the obstacles. It would take sharp turns and 
+    stayed on course most of the time.
 \end{flushleft}
 
 \easysubproblem{What two factors are leading to the \qu{crumbling of the Tower of Babel?}}
-\begin{itemize}
-    \item The ability to accumulate evidence is an optimal survival strategy.
-    \item Dependence on Bayes’ theorem for calculating each individual has mastered a topic and is ready for a new challenge.
-\end{itemize}
+\begin{enumerate}
+    \item Bayes Theorem dependence for the calculation of each individual that has mastered a topic. 
+    \item Acumulation of evidence is a survival strategy
+\end{enumerate}
 
 \intermediatesubproblem{Does the brain work through iterative Bayesian modeling?}
 \begin{flushleft}
@@ -88,18 +88,19 @@ NAME: \line(1,0){380}
 
 \easysubproblem{If $\theta$ and $\sigsq$ are assumed to be independent, how can $\prob{\theta,~\sigsq}$ be factored?}
 
-\[
-    \prob{\theta,~\sigsq} = \prob{\theta}\prob{~\sigsq} 
-\]
+\begin{align*}
+    \prob{\theta,~\sigsq} = \prob{\theta}\prob{\sigsq}  
+\end{align*}
+
 
 \easysubproblem{If $\prob{\theta} = \normnot{\mu_0}{\tausq}$ and $\prob{\sigsq} \sim \invgammanot{\overtwo{n_0}}{\overtwo{n_0 \sigsq_0}}$, find the kernel of the joint posterior, $\cprob{\theta,~\sigsq}{X}$}.
 
 \begin{align*}
     \cprob{\theta,~\sigsq}{X} 
-    &= \cprob{X}{\theta,~\sigsq}\prob{\theta}\prob{~\sigsq}\\
-    &= \Pi \normpdf{X_i}{\theta}{\sigsq} \exp{\frac{1}{2\tausq}(\theta - \mu_0)^2}\\
+    &= \cprob{X}{\theta,\sigsq}\prob{\theta}\prob{\sigsq}\\
+    &= \prod_{i=1}^{n} \normpdf{x_i}{\theta}{\sigsq} \exp{\frac{1}{2\tausq}(\theta - \mu_0)^2}\\
     &\propto (\sigsq)^{-\frac{n}{2}} 
-    e^{-\frac{1}{2\sigsq}\big((n-1)s^2 + n(\xbar-\theta)^2\big)} e^{-\frac{1}{2\tausq}(\theta-\mu_0)^2}
+    \exp{-\frac{1}{2\sigsq}((n-1)s^2 + n(\xbar-\theta)^2)} \exp{-\frac{1}{2\tausq}(\theta-\mu_0)^2}
     (\sigsq)^{-\frac{n_0}{2}-1} 
 \end{align*}
 
@@ -107,18 +108,14 @@ NAME: \line(1,0){380}
 
 \begin{align*}
     (\sigsq)^{-\frac{n}{2}} &
-    e^{-\frac{1}{2\sigsq}\big((n-1)s^2 + n(\xbar-\theta)^2\big)} e^{-\frac{1}{2\tausq}(\theta-\mu_0)^2}
+    \exp{-\frac{1}{2\sigsq}((n-1)s^2 + n(\xbar-\theta)^2)} \exp{-\frac{1}{2\tausq}(\theta-\mu_0)^2}
     (\sigsq)^{-\frac{n_0}{2}-1}\\
     &\propto (\sigsq)^{-\frac{n}{2}-\frac{n_0}{2}-1} 
-    e^{-\frac{1}{2\sigsq}\big((n-1)s^2 + n_0\sigsq_0 + n\xbar^2\big)}
-    e^{\big(\frac{n\xbar}{\sigsq} + \frac{\mu_0}{\tausq}\big)\theta - \big( \frac{n}{2\sigsq} + \frac{1}{\tausq}\big)\theta^2}\\
-    &= (\sigsq)^{-\frac{n}{2}-\frac{n_0}{2}-1} 
-    e^{-\frac{1}{2\sigsq}\big((n-1)s^2 + n_0\sigsq_0 + n\xbar^2\big)}
-    \sqrt{\frac{\pi}{b}}e^{-\frac{a^2}{4b}} \normnot{\frac{a}{2b}}{\frac{1}{2b}}
-    \cprob{X,~\sigsq}{\theta} \\
+    \exp{-\frac{1}{2\sigsq}((n-1)s^2 + n_0\sigsq_0 + n\xbar^2)}
+    \exp{(\frac{n\xbar}{\sigsq} + \frac{\mu_0}{\tausq})\theta - ( \frac{n}{2\sigsq} + \frac{1}{\tausq})\theta^2}\\
     &\propto (\sigsq)^{-\frac{n}{2}-\frac{n_0}{2}-1} 
-    e^{-\frac{1}{2\sigsq}\big((n-1)s^2 + n_0\sigsq_0 + n\xbar^2\big)}\Big( \frac{n}{2\sigsq} + \frac{1}{\pi}\Big)^{-\frac{1}{2}}
-    e^{\big(\frac{n\xbar}{\sigsq} + \frac{\mu_0}{\tausq}\big)^2 / 4\big( \frac{n}{2\sigsq} + \frac{1}{2\tausq}\big)}\\
+    \exp{-\frac{1}{2\sigsq}((n-1)s^2 + n_0\sigsq_0 + n\xbar^2)}( \frac{n}{2\sigsq} + \frac{1}{\pi})^{-\frac{1}{2}}
+    \exp{\frac{(\frac{n\xbar}{\sigsq} + \frac{\mu_0}{\tausq})^2 }{ 4( \frac{n}{2\sigsq} + \frac{1}{2\tausq})}}
 \end{align*}
 
 \hardsubproblem{[MA] Find the posterior mode of $\sigsq$ using $k(\sigsq~|~X)$.}\spc{5}
@@ -126,10 +123,10 @@ NAME: \line(1,0){380}
 \hardsubproblem{Describe how you would sample from $k(\sigsq~|~X)$. Make all steps explicit and use the notation from Table~\ref{tab:eqs}.}
 
 \begin{enumerate}
-    \item Select $\sigsq_{min}, \sigsq_{max} \Delta$ for: $<\sigsq_{min}, \sigsq_{min} + \Delta, \cdots, \sigsq_{max}>$ 
-    \item Compute $C \approx \frac{1}{\sum_{\sigsq \in G} k(\sigsq~|~X)}$ for all $\sigsq_0 \in G$ compute $F(\sigsq_0~|~X) = \prob{\sigsq \leq \sigsq_0~|~X}$
-    \item Draw $u$ from runif(0,1) and ship $X_{samp} = avgmin_{\sigsq \in G} \{ F(\sigsq~|~X) \geq u \}$
-    \item Repeat c
+    \item Choose $\sigsq_{min}, \sigsq_{max}, \Delta$ to put in  $<\sigsq_{min}, \sigsq_{min} + \Delta, \cdots, \sigsq_{max}>$ 
+    \item Compute $C \approx \frac{1}{\sum_{\sigsq \in G} k(\sigsq|X)}$  $ \forall ~ \sigsq_0 \in G$ compute $F(\sigsq_0~|~X) = \prob{\sigsq \leq \sigsq_0~|~X}$
+    \item Draw $u$ from $\texttt{runif}(0,1)$ and then put in $X_{samp} = avgmin_{\sigsq \in G} \{ F(\sigsq~|~X) \geq u \}$
+    \item Repeat
 \end{enumerate}
 
 
@@ -139,20 +136,20 @@ NAME: \line(1,0){380}
     \item Draw $\sigsq_{samp}$ from $k(\sigsq~|~X)$
     \item Draw $\theta_{samp}$ from $\normnot{\theta}{\sigsq}$
     \item Ship $<\theta_{samp}, \sigsq_{samp}>$ as one sample
-    \item Repeat a-c s times
+    \item Repeat previous steps s times
 \end{enumerate}
 
 
 \hardsubproblem{What are the two main disadvantages of grid sampling?}
 
 \begin{enumerate}
-    \item Selecting the min, max and $\Delta$ are needed.
-    \item if $\Delta$ is small and $dim[\theta]$ is large, grid sampling fails.
+    \item Selecting the the appropriate min, max and $\Delta$.
+    \item If $\Delta$ is too small and $dim[\theta]$ is large then it can take infinite time.
 \end{enumerate}
 
 \hardsubproblem{Why do you think the prior $\prob{\theta} = \normnot{\mu_0}{\tausq}$ and $\prob{\sigsq} \sim \invgammanot{\overtwo{n_0}}{\overtwo{n_0 \sigsq_0}}$ is called \qu{semi-conjugate}?}
 
-It combines the normal and the inverse gamma to make a normal inverse gamma distribution.
+Since both models have their own conjugate models. When you combine two conjugate models you call them semi-conjugate
 
 \extracreditsubproblem{[MA] Find the MMSE of $\sigsq$}\spc{0}
 
@@ -164,12 +161,12 @@ It combines the normal and the inverse gamma to make a normal inverse gamma dist
 \easysubproblem{Outline the systematic sweep Gibbs Sampler algorithm below (in your notes).}
 
 \begin{enumerate}
-    \item Begin with a reasonable value for  $\theta(\theta_0=\theta)$
-    \item Draw $\sigsq_1$ from $\cprob{\sigsq}{X,\theta}$ where $\theta_0=\theta$
-    \item Draw $\theta_1$ from $\cprob{\theta}{X,\sigsq}$ where $\sigsq=\sigsq_1$
-    \item Draw $\sigsq_2$ from $\cprob{\sigsq}{X,\theta}$ where $\theta=\theta_1$
-    \item Draw $\theta_2$ from $\cprob{\theta}{X,\sigsq}$ where $\sigsq=\sigsq_2$
-    \item Repeat s times
+    \item Find reasonable value for  $\theta(\theta_0=\theta)$
+    \item Sample $\sigsq_1$ from $\cprob{\sigsq}{X,\theta}$ where $\theta_0=\theta$
+    \item Sample $\theta_1$ from $\cprob{\theta}{X,\sigsq}$ where $\sigsq=\sigsq_1$
+    \item Sample  $\sigsq_2$ from $\cprob{\sigsq}{X,\theta}$ where $\theta=\theta_1$
+    \item Sample $\theta_2$ from $\cprob{\theta}{X,\sigsq}$ where $\sigsq=\sigsq_2$
+    \item Repeat previous steps s times
 \end{enumerate}
 
 \extracreditsubproblem{Under what conditions does this algorithm converge?}\spc{0}
@@ -190,42 +187,41 @@ It combines the normal and the inverse gamma to make a normal inverse gamma dist
 
 \easysubproblem{Consider the change point Poisson model we looked at in class. We have $m$ exchangeable Poisson r.v.'s with parameter $\lambda_1$ followed by $n-m$ exchangeable Poisson r.v.'s with parameter $\lambda_2$. Both rate parameters and the value of $m$ are unknown so the parameter space is 3-dimensional. Write the likelihood below.}
 \begin{align*}
-    \cprob{\lambda_1, \lambda_2, m}{X_1, \cdots, X_n}
-    &\propto \cprob{X_1, \cdots, X_n}{\lambda_1, \lambda_2, m}\prob{lambda_1, \lambda_2, m}\\
-    &= \Bigg( \prod^m_{t=1} \frac{e^{-\lambda_1}\lambda_1^{X_t}}{X_t!}\Bigg)
-    \Bigg( \prod^n_{t=m+1} \frac{e^{-\lambda_2}\lambda_2^{X_t}}{X_t!}\Bigg)
-    \Bigg( \frac{1}{n-1}\Bigg)
+    \cprob{\lambda_1, \lambda_2, m}{x_1, \cdots, x_n}
+    &\propto \cprob{x_1, \cdots, x_n}{\lambda_1, \lambda_2, m}\prob{\lambda_1, \lambda_2, m}\\
+    &= ( \prod^m_{t=1} \frac{\exp{-\lambda_1}\lambda_1^{x_t}}{x_t!})
+    (\prod^n_{t=m+1} \frac{\exp{-\lambda_2}\lambda_2^{x_t}}{x_t!})
+    (\frac{1}{n-1})
 \end{align*}
 
 \easysubproblem{Consider the model in (a) where $\lambda_1 = 2$ and $\lambda_2 = 4$ and $m=10$ and $n=30$. Run the code on lines 1--14 of the code at the link \href{https://github.com/kapelner/QC_Math_341_Spring_2017/blob/master/lectures/lec20_demos/poisson_gamma_change_pt.R}{here} by copying them from the website and pasting them into an R console. This will plot a realization of the data with those parameters. Can you identify the change point visually?}
 \begin{flushleft}
-    The change point is approximately 12.
+    Approximately 12.
 \end{flushleft}
 
 
 \easysubproblem{Consider the model in (a) but we are blinded to the true values of the parameters given in (b) and we wish to estimate them via a Gibbs sampler. Run the code on lines 16--78 of the code at the link \href{https://github.com/kapelner/QC_Math_341_Spring_2017/blob/master/lectures/lec20_demos/poisson_gamma_change_pt.R}{here} which will run 10,000 iterations. What iteration number do you think the sampler converged?}
 
 \begin{flushleft}
-    It looks like 10.   
+   Approximately 10.   
 \end{flushleft}
 
 \easysubproblem{Now we wish to assess autocorrelation among the chains from the Gibbs sampler run in (d). Run the code on lines 79--89 of the code at the link \href{https://github.com/kapelner/QC_Math_341_Spring_2017/blob/master/lectures/lec20_demos/poisson_gamma_change_pt.R}{here}. What do we mod our chains by to thin them out so the chains represent independent samples?}\spc{1}
 \begin{flushleft}
-    8
+    Mod chains to  8
 \end{flushleft}
 
 \easysubproblem{Run the code on lines 91--121 of the code at the link \href{https://github.com/kapelner/QC_Math_341_Spring_2017/blob/master/lectures/lec20_demos/poisson_gamma_change_pt.R}{here} which will first burn and thin the chains. Explain these three plots. What distributions do these frequency histograms approximate? You must have $\prob{\text{something}}$ in your answer. What are the blue lines? What are the red lines? What are the grey lines? Read the code if you have to for the answers.}
 \begin{itemize}
-    \item The histograms approximate $\cprob{\lambda_1}{X_1, \cdots, X_n, \lambda_2, m}, \cprob{\lambda_2}{X_1, \cdots, X_n, \lambda_1, m}$ and $\cprob{m}{X_1, \cdots, X_n, \lambda_1, \lambda_2}$.
-    \item The blue line are the means $(\lambda_1 =1.6,\lambda_2 =3.25, m = 9.4)$.
-    \item The red lines are the true values $(\lambda_1 =2,\lambda_2 =4, m = 10)$.
-    \item The grey lines are the $95\%$ credible regions $(\lambda_1:[0.7,2.7],\lambda_2:[2.4,4.2], m:[2,19])$.
+    \item Histograms are approximations for: $\cprob{\lambda_1}{X_1, \cdots, X_n, \lambda_2, m}, \cprob{\lambda_2}{X_1, \cdots, X_n, \lambda_1, m}$, $\cprob{m}{X_1, \cdots, X_n, \lambda_1, \lambda_2}$.
+    \item The blue line represent the best guesss or the means for $(\lambda_1 =1.6,\lambda_2 =3.25, m = 9.4)$.
+    \item The red lines represent the true values where $(\lambda_1 =2,\lambda_2 =4, m = 10)$.
+    \item The grey lines represent the credible regions of $95\%$ where $(\lambda_1:[0.7,2.7],\lambda_2:[2.4,4.2], m:[2,19])$.
 \end{itemize}
 
 \hardsubproblem{Test the following hypothesis: $H_0: m \leq 15$ by approximating the $p$-value from one of the plots in (e).}
 \begin{align*}
-    P_{val} &= \cprob{m\leq 15}{X}\\
-    &= \frac{1}{30} \Sigma \mathds{1} m \leq 15 \\
+    p_{val} &= \cprob{m\leq 15}{X}\\
     &= 0.9597598 > (\alpha = 0.05)
 \end{align*}
 
@@ -233,8 +229,8 @@ It combines the normal and the inverse gamma to make a normal inverse gamma dist
 
 \hardsubproblem{What exactly would come from $\cprob{X^*}{X}$ in the context of this problem? Assume $X^*$ is the same dimension of $X$ (in our toy example, $n=30$). Explain in full detail. Be careful!}
 \begin{flushleft}
-    It would predict the 31st data point given our estimates ($\lambda_1, \lambda_2, m$) and the previous data.
-    $\cprob{X^*}{X} = \int \int \int \cprob{X^*}{\lambda_1, \lambda_2, m} \cprob{\lambda_1, \lambda_2, m}{X} d\lambda_1 d\lambda_2 dm$
+    Since $\cprob{X^*}{X} = \int_{m} \int_{\lambda_2} \int_{\lambda_1} \cprob{X^*}{\lambda_1, \lambda_2, m} \cprob{\lambda_1, \lambda_2, m}{X} d\lambda_1 d\lambda_2 dm$
+    Predicts 31st data point given the estimates of ($\lambda_1, \lambda_2, m$) including previous data.
 \end{flushleft}
 
 \extracreditsubproblem{Explain how you would estimate $\cov{\lambda_1}{\lambda_2}$ and what do you think this estimate will be close to?}\spc{7}
